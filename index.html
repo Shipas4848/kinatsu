@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>禁活</title>
+  <meta name="theme-color" content="#2455E0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="禁活">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #101522;
+      --dark: #101522;
+      --blue: #2455E0;
+      --blue-deep: #143A9E;
+      --blue-soft: #ECF2FF;
+      --mint: #2455E0;
+      --aqua: #23C8DB;
+      --gold: #F6B51E;
+      --gold-soft: #FFF6D8;
+      --bg: #F6F8FC;
+      --card: #FFFFFF;
+      --text: #111827;
+      --text2: #64748B;
+      --text3: #9AA7B8;
+      --border: #E4EAF3;
+      --r: 18px;
+      --rsm: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 76px;
+      max-width: 430px;
+      margin: 0 auto;
+      letter-spacing: 0;
+    }
+
+    .hero-zone {
+      background: var(--card);
+      padding: 16px 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hz-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text3);
+      letter-spacing: 0;
+      margin-top: 2px;
+    }
+
+    .streak-chip {
+      background: var(--gold-soft);
+      color: #9A6500;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 11px;
+      border-radius: 20px;
+    }
+
+    .hero-card {
+      background: var(--blue);
+      border-radius: 26px;
+      padding: 22px 20px 18px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 42px rgba(36,85,224,0.22);
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.10) 1px, transparent 1px);
+      background-size: 38px 38px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .hero-card > * { position: relative; z-index: 1; }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 8px;
+    }
+
+    .hero-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 16vw, 68px);
+      font-weight: 800;
+      letter-spacing: -2.8px;
+      line-height: 0.95;
+      color: #fff;
+      background: none;
+      -webkit-text-fill-color: #fff;
+      text-shadow: 0 3px 18px rgba(0,0,0,0.12);
+      margin-bottom: 18px;
+      animation: heroIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-number small {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: rgba(255,255,255,0.62);
+      -webkit-text-fill-color: rgba(255,255,255,0.62);
+    }
+
+    .hero-today-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 16px;
+      padding: 11px 13px;
+    }
+
+    .hero-today-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.72);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-today-amt {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #FFFFFF;
+      background: none;
+      -webkit-text-fill-color: #FFFFFF;
+      letter-spacing: -0.5px;
+    }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== LIGHT ZONE ===== */
+    .light-zone { padding: 18px 16px 0; }
+
+    .q-head {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 4px 0 12px;
+      letter-spacing: -0.2px;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .cat-btn {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 70px;
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), border-color 0.12s, background 0.12s, box-shadow 0.12s;
+    }
+
+    .cat-btn:active { transform: scale(0.97); }
+    .cat-btn.active {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+      box-shadow: 0 10px 24px rgba(36,85,224,0.10);
+    }
+
+    .cat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      flex-shrink: 0;
+      color: var(--blue);
+    }
+
+    .cat-icon svg,
+    .nav-icon svg,
+    .p-icon svg {
+      width: 21px;
+      height: 21px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .cat-name { font-size: 14px; font-weight: 800; color: var(--text); letter-spacing: 0; }
+    .cat-btn.active .cat-name { color: var(--blue); }
+
+    /* ===== PRODUCT SHEET ===== */
+    .product-sheet {
+      background: var(--card);
+      border-radius: 22px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      display: none;
+      animation: slideUp 0.22s cubic-bezier(0.34,1.4,0.64,1);
+      box-shadow: 0 14px 36px rgba(15,23,42,0.08);
+    }
+
+    .product-sheet.show { display: block; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .sheet-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .sheet-title { font-size: 14px; font-weight: 800; }
+
+    .add-fav-btn {
+      font-size: 12px; font-weight: 700;
+      color: var(--blue);
+      border: none;
+      background: var(--blue-soft);
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 7px 10px;
+    }
+
+    .product-item {
+      display: flex; align-items: center;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer; gap: 12px;
+      transition: background 0.1s;
+    }
+
+    .product-item:last-child { border-bottom: none; }
+    .product-item:active { background: var(--bg); }
+
+    .p-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .p-name { flex: 1; font-size: 14px; font-weight: 700; }
+    .p-price { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 800; color: var(--blue); }
+
+    .custom-row {
+      display: flex; gap: 6px; padding: 10px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .custom-row input {
+      flex: 1; padding: 9px 11px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--rsm);
+      font-size: 13px; font-family: inherit; color: var(--text);
+      background: var(--bg); outline: none;
+    }
+
+    .custom-row input:focus { border-color: var(--blue); }
+
+    .custom-row button {
+      padding: 9px 14px; background: var(--blue); color: #fff;
+      border: none; border-radius: var(--rsm);
+      font-size: 12px; font-weight: 700; font-family: inherit;
+      cursor: pointer; white-space: nowrap;
+    }
+
+    /* ===== TODAY LOG ===== */
+    .log-section { margin-bottom: 8px; }
+
+    .log-sec-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--text3);
+      margin-bottom: 8px;
+    }
+
+    .dev-tools {
+      margin: 2px 0 14px;
+      color: var(--text3);
+      font-size: 12px;
+    }
+
+    .dev-tools summary {
+      cursor: pointer;
+      width: fit-content;
+      padding: 6px 0;
+      font-weight: 700;
+    }
+
+    .dev-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .dev-actions button {
+      padding: 7px 10px !important;
+      font-size: 11px !important;
+      font-weight: 800 !important;
+      font-family: inherit !important;
+      background: var(--blue-soft) !important;
+      color: var(--blue) !important;
+      border: none !important;
+      border-radius: 999px !important;
+      cursor: pointer !important;
+    }
+
+    .dev-actions button:last-child {
+      background: #FEE2E2 !important;
+      color: #EF4444 !important;
+    }
+
+    .log-card {
+      background: var(--card); border-radius: var(--r);
+      overflow: hidden; border: 1px solid var(--border);
+    }
+
+    .log-row {
+      display: flex; align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    .log-row:last-child { border-bottom: none; }
+    .log-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .log-icon svg {
+      width: 17px;
+      height: 17px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      display: block;
+    }
+    .log-name { flex: 1; font-size: 13px; font-weight: 600; }
+    .qty-ctrl { display: flex; align-items: center; gap: 5px; }
+
+    .qty-btn {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: var(--bg);
+      color: var(--blue); font-size: 13px; font-weight: 700; font-family: inherit;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    .qty-num { font-size: 12px; font-weight: 700; min-width: 14px; text-align: center; }
+    .log-amt { font-size: 13px; font-weight: 800; color: var(--blue); }
+
+    .del-btn {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: none; background: #FEE2E2; color: #EF4444;
+      font-size: 11px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-family: inherit;
+    }
+
+    /* ===== BOTTOM NAV ===== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px); max-width: 406px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      display: flex;
+      z-index: 100;
+      padding: 6px;
+      box-shadow: 0 18px 46px rgba(15,23,42,0.13);
+    }
+
+    .nav-item {
+      flex: 1; padding: 9px 0 8px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 3px;
+      border: none; background: transparent;
+      border-radius: 18px;
+      cursor: pointer; color: var(--text3);
+      font-size: 11px; font-weight: 800; font-family: inherit;
+      letter-spacing: 0;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-item.active { color: var(--blue); background: var(--blue-soft); }
+    .nav-icon {
+      color: currentColor;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== PAGES ===== */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===== RECORD PAGE ===== */
+    .rec-page { padding: 0; }
+
+    .record-view-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 12px 16px;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .record-view-tab {
+      flex: 1;
+      border: none;
+      border-radius: 10px;
+      padding: 9px;
+      background: var(--bg);
+      color: var(--text2);
+      font: 800 12px inherit;
+      cursor: pointer;
+    }
+
+    .record-view-tab.active { background: var(--blue); color: #fff; }
+    .calendar-page-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .calendar-page-sub { font-size: 11px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
+
+    .rec-hero {
+      background: var(--card);
+      padding: 22px 22px 24px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .seg {
+      display: flex; background: var(--border);
+      border-radius: var(--rsm); padding: 3px; margin-bottom: 18px;
+    }
+
+    .seg-btn {
+      flex: 1; padding: 7px 0; border: none; background: transparent;
+      border-radius: 7px; font-size: 12px; font-weight: 700; font-family: inherit;
+      letter-spacing: 0;
+      color: var(--text2); cursor: pointer; transition: all 0.15s;
+    }
+
+    .seg-btn.active {
+      background: var(--card);
+      color: var(--blue);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .chart-label { font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: var(--text3); margin-bottom: 4px; }
+    .chart-amt { font-size: 44px; font-weight: 800; letter-spacing: -2px; color: var(--text); margin-bottom: 2px; font-family: 'Space Grotesk', sans-serif; }
+    .chart-sub { font-size: 11px; color: var(--text2); margin-bottom: 20px; font-weight: 500; }
+
+    .bar-wrap { display: flex; align-items: flex-end; gap: 4px; height: 100px; margin-bottom: 6px; }
+
+    .bar-col {
+      flex: 1; height: 100%; display: flex; align-items: flex-end;
+      justify-content: center; position: relative; cursor: pointer;
+    }
+
+    .bar-tip {
+      position: absolute; bottom: calc(100% + 5px); left: 50%;
+      transform: translateX(-50%);
+      background: #FFFFFF; color: var(--dark);
+      font-size: 10px; font-weight: 700; padding: 3px 7px;
+      border-radius: 5px; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity 0.1s;
+    }
+
+    .bar-col:hover .bar-tip, .bar-col.show-tip .bar-tip { opacity: 1; }
+
+    .bar-inner {
+      width: 68%; max-width: 24px;
+      background: var(--border);
+      border-radius: 3px 3px 2px 2px; min-height: 3px;
+    }
+
+    .bar-inner.filled { background: #93B4F8; }
+    .bar-inner.today  { background: var(--blue); }
+
+    .bar-labels { display: flex; gap: 4px; }
+    .bar-labels span { flex: 1; text-align: center; font-size: 10px; color: var(--text3); }
+
+    .rec-body { padding: 18px 16px; }
+
+    .stats-row { display: flex; gap: 8px; margin-bottom: 16px; }
+
+    .stat-card {
+      flex: 1; background: var(--card); border-radius: var(--rsm);
+      padding: 14px; text-align: center; border: 1px solid var(--border);
+    }
+
+    .stat-label { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--text3); margin-bottom: 5px; }
+    .stat-val { font-size: 18px; font-weight: 800; color: var(--text); font-family: 'Space Grotesk', sans-serif; }
+
+    .section-title {
+      font-size: 13px; font-weight: 700; color: var(--text);
+      margin-bottom: 10px; margin-top: 4px;
+    }
+
+    .habit-card {
+      background: var(--card); border-radius: var(--rsm);
+      padding: 12px 16px; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .habit-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue);
+    }
+
+    .habit-icon svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      display: block;
+    }
+
+    .habit-icon.drink { background: #DCFCE7; }
+    .habit-icon.smoke { background: #DBEAFE; }
+    .habit-icon.meal  { background: #FEE2E2; }
+    .habit-icon.snack { background: #FEF9C3; }
+    .habit-icon.move  { background: #CFFAFE; }
+    .habit-icon.other { background: var(--gold-dim); }
+
+    .habit-info { flex: 1; }
+    .habit-name { font-size: 13px; font-weight: 700; }
+    .habit-cnt  { font-size: 11px; color: var(--text3); margin-top: 1px; }
+    .habit-amt  { font-size: 15px; font-weight: 800; color: var(--blue); font-family: 'Space Grotesk', sans-serif; }
+
+    /* ===== CALENDAR ===== */
+    .cal-card {
+      background: var(--card); border-radius: var(--r);
+      padding: 16px; border: 1px solid var(--border);
+      margin-top: 14px;
+    }
+
+    .cal-seg {
+      display: flex; background: var(--border);
+      border-radius: var(--rsm); padding: 3px; margin-bottom: 14px;
+    }
+
+    .cal-seg-btn {
+      flex: 1; padding: 6px 0; border: none; background: transparent;
+      border-radius: 7px; font-size: 11px; font-weight: 700; font-family: inherit;
+      color: var(--text2); cursor: pointer; transition: all 0.15s;
+    }
+
+    .cal-seg-btn.active { background: var(--card); color: var(--blue); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+    .cal-month { font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 10px; color: var(--text2); }
+    .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 5px; }
+    .cal-weekdays span { text-align: center; font-size: 10px; color: var(--text3); font-weight: 700; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+
+    .cal-cell {
+      aspect-ratio: 1; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; position: relative;
+    }
+
+    .cal-cell.empty   { visibility: hidden; }
+    .cal-cell.future  { color: #D3DAE4; }
+    .cal-cell.fail    { color: #7F8DA1; }
+    .cal-cell.success {
+      background: radial-gradient(circle at 35% 28%, #FFF2A8 0 18%, #F6B51E 48%, #D99308 100%);
+      color: #fff;
+      font-size: 10px;
+      text-shadow: 0 1px 2px rgba(111, 70, 0, 0.35);
+      clip-path: polygon(50% 2%, 61% 32%, 94% 25%, 70% 50%, 86% 82%, 50% 66%, 14% 82%, 30% 50%, 6% 25%, 39% 32%);
+      filter: drop-shadow(0 4px 5px rgba(217,147,8,0.28));
+      overflow: hidden;
+    }
+    .cal-cell.success::before {
+      content: '';
+      position: absolute;
+      inset: -45%;
+      background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.18) 45%, rgba(255,255,255,0.86) 50%, rgba(255,255,255,0.18) 55%, transparent 62%);
+      transform: translateX(-80%);
+      animation: stickerShine 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .cal-cell.today   { color: var(--blue); box-shadow: inset 0 0 0 1.5px var(--blue); }
+    .cal-cell.success.today { color: #fff; filter: drop-shadow(0 0 0 var(--blue)) drop-shadow(0 4px 5px rgba(217,147,8,0.28)); }
+
+    @keyframes stickerShine {
+      0%, 38% { transform: translateX(-82%); }
+      66% { transform: translateX(82%); }
+      100% { transform: translateX(82%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cal-cell.success::before { animation: none; opacity: 0.35; transform: translateX(12%); }
+    }
+
+    /* ===== ASSET PAGE ===== */
+    .asset-page { padding: 0; }
+
+    .asset-hero {
+      background: var(--card);
+      padding: 22px 22px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-hero-label { font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: var(--text3); margin-bottom: 4px; }
+    .asset-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .asset-label-row .asset-hero-label { margin-bottom: 0; }
+    .invest-help-btn {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--blue);
+      font: 800 13px inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .asset-hero-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.5; margin-bottom: 16px; }
+
+    .form-label { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--text3); margin-bottom: 6px; display: block; }
+
+    .form-select {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid var(--border); border-radius: var(--rsm);
+      font-size: 13px; font-family: inherit; color: var(--text);
+      background: var(--card); outline: none; margin-bottom: 12px;
+    }
+
+    .form-select:focus { border-color: var(--blue); }
+
+    .asset-body { padding: 18px 16px; }
+
+    .result-card {
+      background: var(--card); border-radius: var(--r);
+      padding: 18px; margin-bottom: 12px; border: 1px solid var(--border);
+    }
+
+    .result-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--text3); margin-bottom: 4px; }
+    .result-num { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; color: var(--text); margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; }
+    .result-num small { font-size: 16px; color: var(--text2); font-weight: 600; letter-spacing: 0; }
+
+    .divider { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: var(--text3); font-size: 11px; font-weight: 600; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .gain-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-dim); color: #92610A;
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; margin-bottom: 14px;
+    }
+
+    .legend-row { display: flex; gap: 14px; margin-bottom: 4px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text3); }
+    .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .graph-note { font-size: 10px; color: var(--text3); text-align: center; margin-top: 8px; }
+    .graph-empty { text-align: center; padding: 36px 10px; color: var(--text3); font-size: 13px; }
+
+    .sim-card {
+      background: var(--card); border-radius: var(--r);
+      padding: 18px; margin-bottom: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .sim-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--text3); margin-bottom: 4px; }
+    .sim-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 5px; }
+    .sim-desc { font-size: 11px; line-height: 1.65; color: var(--text2); margin-bottom: 14px; }
+    .sim-monthly { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; font-family: 'Space Grotesk', sans-serif; color: var(--text); }
+
+    .sim-table { width: 100%; border-collapse: collapse; }
+    .sim-table tr { border-bottom: 1px solid var(--border); }
+    .sim-table tr:last-child { border-bottom: none; }
+    .sim-table td { padding: 10px 0; font-size: 13px; }
+    .sim-table .yr { color: var(--text3); }
+    .sim-table .amt { text-align: right; font-weight: 800; font-size: 17px; font-family: 'Space Grotesk', sans-serif; color: var(--text); }
+    .sim-table .big { font-size: 22px; color: var(--blue); }
+
+    .investment-disclaimer {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 13px 2px 2px;
+      color: var(--text3);
+    }
+    .investment-disclaimer-icon {
+      width: 17px;
+      height: 17px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+    .investment-disclaimer p {
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+
+    .invest-help-intro { font-size: 12px; line-height: 1.65; color: var(--text2); margin: -4px 0 8px; }
+    .invest-help-item {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .invest-help-item:last-of-type { border-bottom: none; }
+    .invest-help-visual {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .invest-help-visual.gold { background: #FFF5D8; color: #987126; }
+    .invest-help-visual.green { background: #E9F8F4; color: #147A65; }
+    .invest-help-visual svg { width: 42px; height: 42px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .invest-help-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .invest-help-text { font-size: 11px; line-height: 1.65; color: var(--text2); }
+
+    /* ===== MODAL ===== */
+    .modal-bg {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; height: 100%;
+      background: rgba(0,0,0,0.6); z-index: 200;
+      align-items: flex-end; justify-content: center;
+    }
+    .modal-bg.show { display: flex; }
+
+    .modal {
+      background: var(--card); border-radius: var(--r) var(--r) 0 0;
+      padding: 20px; width: 100%; max-width: 430px;
+    }
+
+    .modal-title { font-size: 15px; font-weight: 800; margin-bottom: 14px; }
+
+    .modal input {
+      width: 100%; padding: 11px 13px;
+      border: 1.5px solid var(--border); border-radius: var(--rsm);
+      font-size: 14px; font-family: inherit; color: var(--text);
+      background: var(--bg); outline: none; margin-bottom: 10px;
+    }
+
+    .modal input:focus { border-color: var(--blue); }
+
+    .modal-btn {
+      width: 100%; padding: 13px; background: var(--dark); color: #fff;
+      border: none; border-radius: var(--rsm);
+      font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%);
+      background: var(--text); color: #fff;
+      padding: 10px 20px; border-radius: 30px;
+      font-size: 13px; font-weight: 600;
+      opacity: 0; transition: opacity 0.25s; z-index: 999;
+      pointer-events: none; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; }
+
+    /* ===== DAILY FLOW ===== */
+    .day-switch {
+      display: inline-flex;
+      background: #E9EEF7;
+      border-radius: 999px;
+      padding: 3px;
+      margin-bottom: 14px;
+    }
+
+    .day-switch button {
+      border: none;
+      background: transparent;
+      color: var(--text2);
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .day-switch button.active {
+      background: var(--card);
+      color: var(--blue);
+      box-shadow: 0 2px 8px rgba(15,23,42,0.08);
+    }
+
+    .quick-section { margin-bottom: 16px; }
+    .quick-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .quick-title { font-size: 12px; font-weight: 800; color: var(--text2); }
+    .quick-list { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .quick-list::-webkit-scrollbar { display: none; }
+    .quick-btn {
+      min-width: 126px;
+      min-height: 58px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .quick-btn:active { transform: scale(0.97); }
+    .quick-icon { color: var(--blue); display: flex; }
+    .quick-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .quick-name { display: block; font-size: 11px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .quick-price { display: block; font-size: 12px; font-weight: 800; color: var(--blue); margin-top: 2px; }
+
+    .reward-nudge {
+      margin-bottom: 16px;
+      background: #FFF8E1;
+      border: 1px solid #F3D47A;
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .reward-nudge-icon { width: 36px; height: 36px; color: #A97808; flex-shrink: 0; }
+    .reward-nudge-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .reward-nudge-copy { flex: 1; }
+    .reward-nudge-title { font-size: 13px; font-weight: 800; color: #6F4D00; }
+    .reward-nudge-sub { font-size: 11px; color: #987126; margin-top: 2px; }
+    .reward-nudge button {
+      border: none;
+      background: #A97808;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+
+    /* ===== REPORT ===== */
+    .report-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .report-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .report-title { font-size: 14px; font-weight: 800; }
+    .report-tabs { display: flex; background: #E9EEF7; padding: 3px; border-radius: 999px; }
+    .report-tab { border: none; background: transparent; border-radius: 999px; padding: 5px 9px; font: 700 11px inherit; color: var(--text2); cursor: pointer; }
+    .report-tab.active { background: #fff; color: var(--blue); box-shadow: 0 1px 4px rgba(15,23,42,0.08); }
+    .report-total-label { font-size: 11px; color: var(--text3); font-weight: 700; }
+    .report-total { font: 800 32px/1.1 'Space Grotesk', sans-serif; color: var(--text); margin: 3px 0 12px; }
+    .report-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+    .report-item { background: var(--bg); border-radius: 10px; padding: 10px; }
+    .report-item-label { font-size: 10px; color: var(--text3); font-weight: 700; }
+    .report-item-value { font-size: 13px; color: var(--text); font-weight: 800; margin-top: 3px; }
+    .report-reward { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--blue-soft); color: var(--blue-deep); }
+    .life-example-title { font-size: 11px; font-weight: 800; margin-bottom: 8px; }
+    .life-example-title span { color: var(--text3); font-size: 9px; margin-left: 4px; }
+    .life-example-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .life-example-list li { display: flex; align-items: center; gap: 8px; font-size: 11px; line-height: 1.4; font-weight: 700; color: var(--text); }
+    .life-example-tag { min-width: 34px; padding: 3px 6px; border-radius: 999px; background: #fff; color: var(--blue); text-align: center; font-size: 9px; font-weight: 800; }
+    .share-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 11px;
+      border: none;
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+    .share-btn svg, .share-native svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ===== REWARD CATALOG ===== */
+    .reward-page { padding: 20px 16px 100px; }
+    .reward-page-head { margin-bottom: 16px; }
+    .reward-page-title { font-size: 22px; font-weight: 800; color: var(--text); }
+    .reward-page-sub { font-size: 12px; line-height: 1.6; color: var(--text2); margin-top: 4px; }
+    .reward-progress {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .reward-progress-label { font-size: 11px; font-weight: 700; opacity: 0.7; }
+    .reward-progress-name { font-size: 16px; font-weight: 800; margin: 4px 0 10px; }
+    .reward-progress-track { height: 7px; border-radius: 999px; background: rgba(255,255,255,0.2); overflow: hidden; }
+    .reward-progress-fill { height: 100%; border-radius: inherit; background: #F3CF63; transition: width 0.35s ease; }
+    .reward-progress-meta { font-size: 11px; margin-top: 7px; opacity: 0.8; }
+    .reward-filters { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; margin-bottom: 14px; }
+    .reward-filters::-webkit-scrollbar { display: none; }
+    .reward-filter { border: 1px solid var(--border); background: var(--card); color: var(--text2); border-radius: 999px; padding: 8px 12px; font: 700 11px inherit; white-space: nowrap; cursor: pointer; }
+    .reward-filter.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .reward-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    .reward-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; cursor: pointer; position: relative; }
+    .reward-card.selected { border-color: var(--blue); box-shadow: 0 8px 20px rgba(36,85,224,0.12); }
+    .reward-thumb { height: 100px; display: flex; align-items: center; justify-content: center; color: var(--blue); background: #EDF3FF; }
+    .reward-thumb svg { width: 48px; height: 48px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .reward-card:nth-child(3n+2) .reward-thumb { background: #FFF5D8; color: #987126; }
+    .reward-card:nth-child(3n) .reward-thumb { background: #E9F8F4; color: #147A65; }
+    .reward-info { padding: 11px; }
+    .reward-name { font-size: 13px; font-weight: 800; color: var(--text); line-height: 1.35; }
+    .reward-price { font: 800 14px 'Space Grotesk', sans-serif; color: var(--blue); margin-top: 4px; }
+    .reward-price.custom { font: 700 11px inherit; color: var(--text2); }
+    .reward-select { margin-top: 8px; width: 100%; border: none; border-radius: 9px; padding: 8px; background: var(--blue-soft); color: var(--blue); font: 800 11px inherit; cursor: pointer; }
+    .reward-card.selected .reward-select { background: var(--blue); color: #fff; }
+
+    /* ===== SHARE IMAGE ===== */
+    .share-modal { align-items: center; padding: 18px; }
+    .share-modal .modal { border-radius: 18px; max-height: 92vh; overflow-y: auto; }
+    #share-canvas { width: 100%; height: auto; border-radius: 12px; display: block; background: #2455E0; }
+    .share-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .share-actions button { flex: 1; padding: 11px; border-radius: 11px; font: 800 12px inherit; cursor: pointer; }
+    .share-download { background: var(--blue-soft); color: var(--blue); border: none; }
+    .share-native { background: var(--blue); color: #fff; border: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+    /* ===== EFFECTS ===== */
+    .float-txt {
+      position: fixed; transform: translate(-50%, -50%);
+      font-weight: 800; pointer-events: none; z-index: 1000;
+      white-space: nowrap; animation: floatUp 1.2s ease-out forwards;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .float-txt.t1 { font-size: 20px; color: var(--blue); }
+    .float-txt.t2 { font-size: 26px; color: var(--blue); }
+    .float-txt.t3 { font-size: 32px; color: var(--gold); }
+
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translate(-50%, -20%) scale(0.5); }
+      15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+      100% { opacity: 0; transform: translate(-50%, -160%) scale(1); }
+    }
+
+    .fx-p { position: fixed; pointer-events: none; z-index: 999; border-radius: 50%; }
+
+    .fx-flash {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle, rgba(36,85,224,0.08), transparent 70%);
+      pointer-events: none; z-index: 998;
+      animation: flashOut 0.5s ease-out forwards;
+    }
+
+    @keyframes flashOut { from { opacity: 1; } to { opacity: 0; } }
+
+    .milestone-pop {
+      position: fixed; top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--dark); color: #fff;
+      padding: 16px 24px; border-radius: var(--r);
+      font-size: 15px; font-weight: 800; text-align: center;
+      z-index: 1001; pointer-events: none;
+      animation: milePop 2s ease-out forwards; white-space: nowrap;
+    }
+
+    .milestone-pop small { display: block; font-size: 11px; font-weight: 500; opacity: 0.6; margin-top: 4px; }
+
+    @keyframes milePop {
+      0%   { opacity: 0; transform: translate(-50%, -30%) scale(0.7); }
+      12%  { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+      80%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -60%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE: HOME -->
+<div class="page active" id="page-home">
+
+  <div class="hero-zone">
+    <div class="hz-top">
+      <div>
+        <div class="logo">禁活</div>
+        <div class="logo-sub">浮いたお金を育てる</div>
+      </div>
+      <div class="streak-chip" id="header-streak">0日連続</div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-label">浮いたお金</div>
+      <div class="hero-number"><small>¥</small><span id="hero-total">0</span></div>
+
+      <div class="hero-today-row">
+        <div class="hero-today-label">今日のプラス</div>
+        <div class="hero-today-amt" id="hero-today">+¥0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="light-zone">
+    <div class="reward-nudge" id="reward-nudge" style="display:none;">
+      <div class="reward-nudge-icon" data-icon="gift"></div>
+      <div class="reward-nudge-copy">
+        <div class="reward-nudge-title" id="reward-nudge-title">使い道を決める？</div>
+        <div class="reward-nudge-sub">浮いたお金をご褒美に変えよう</div>
+      </div>
+      <button onclick="openRewards()">見る</button>
+    </div>
+
+    <div class="q-head">今日、何が浮いた？</div>
+
+    <div class="day-switch" aria-label="記録する日">
+      <button class="active" id="logday-today" onclick="setLogDay('today')">今日</button>
+      <button id="logday-yesterday" onclick="setLogDay('yesterday')">昨日</button>
+    </div>
+
+    <div class="quick-section" id="quick-section" style="display:none;">
+      <div class="quick-head">
+        <div class="quick-title">すぐ記録</div>
+      </div>
+      <div class="quick-list" id="quick-list"></div>
+    </div>
+
+    <div class="cat-grid">
+      <div class="cat-btn" id="cat-drink" onclick="selectCat('drink')">
+        <span class="cat-icon" data-icon="drink"></span>
+        <div class="cat-name">お酒</div>
+      </div>
+      <div class="cat-btn" id="cat-smoke" onclick="selectCat('smoke')">
+        <span class="cat-icon" data-icon="smoke"></span>
+        <div class="cat-name">たばこ</div>
+      </div>
+      <div class="cat-btn" id="cat-meal" onclick="selectCat('meal')">
+        <span class="cat-icon" data-icon="meal"></span>
+        <div class="cat-name">食事</div>
+      </div>
+      <div class="cat-btn" id="cat-snack" onclick="selectCat('snack')">
+        <span class="cat-icon" data-icon="snack"></span>
+        <div class="cat-name">間食</div>
+      </div>
+      <div class="cat-btn" id="cat-move" onclick="selectCat('move')">
+        <span class="cat-icon" data-icon="move"></span>
+        <div class="cat-name">移動</div>
+      </div>
+      <div class="cat-btn" id="cat-other" onclick="selectCat('other')">
+        <span class="cat-icon" data-icon="other"></span>
+        <div class="cat-name">その他</div>
+      </div>
+    </div>
+
+    <div class="product-sheet" id="product-sheet">
+      <div class="sheet-header">
+        <div class="sheet-title" id="sheet-title">何を我慢した？</div>
+        <button class="add-fav-btn" onclick="openFavModal()">＋ 追加</button>
+      </div>
+      <div id="product-list"></div>
+      <div class="custom-row">
+        <input type="text" id="custom-name" placeholder="商品名（任意）">
+        <input type="number" id="custom-price" placeholder="金額">
+        <button onclick="logCustom()">記録</button>
+      </div>
+    </div>
+
+    <div id="today-section" style="display:none; padding-bottom:8px;">
+      <div class="log-section">
+        <div class="log-sec-label" id="log-sec-label">今日の記録</div>
+        <div class="log-card" id="today-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: RECORD -->
+<div class="page" id="page-record">
+  <div class="rec-page">
+    <div class="record-view-tabs">
+      <button class="record-view-tab active" id="record-view-summary" onclick="setRecordView('summary')">まとめ</button>
+      <button class="record-view-tab" id="record-view-calendar" onclick="setRecordView('calendar')">カレンダー</button>
+    </div>
+
+    <div class="rec-hero record-summary-only">
+      <div class="seg">
+        <button class="seg-btn active" id="rtab-day"   onclick="setRange('day')">日</button>
+        <button class="seg-btn"        id="rtab-week"  onclick="setRange('week')">週</button>
+        <button class="seg-btn"        id="rtab-month" onclick="setRange('month')">月</button>
+      </div>
+      <div class="chart-label" id="chart-period">直近7日間</div>
+      <div class="chart-amt" id="chart-amount">¥0</div>
+      <div class="chart-sub" id="chart-sub">今日の禁活マネー</div>
+      <div class="bar-wrap" id="bar-wrap"></div>
+      <div class="bar-labels" id="bar-labels"></div>
+    </div>
+
+    <div class="rec-body">
+      <div class="stats-row record-summary-only">
+        <div class="stat-card">
+          <div class="stat-label">平均</div>
+          <div class="stat-val" id="stat-avg">¥0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">合計</div>
+          <div class="stat-val" id="stat-total">¥0</div>
+        </div>
+      </div>
+
+      <div class="section-title record-summary-only">カテゴリ別</div>
+      <div id="habit-list" class="record-summary-only">
+        <div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">ホームで記録を始めましょう</div>
+      </div>
+
+      <div class="report-card record-summary-only">
+        <div class="report-top">
+          <div class="report-title">まとめレポート</div>
+          <div class="report-tabs">
+            <button class="report-tab active" id="report-week" onclick="setReportPeriod('week')">週</button>
+            <button class="report-tab" id="report-month" onclick="setReportPeriod('month')">月</button>
+          </div>
+        </div>
+        <div class="report-total-label" id="report-period-label">今週の浮いたお金</div>
+        <div class="report-total" id="report-total">¥0</div>
+        <div class="report-grid">
+          <div class="report-item">
+            <div class="report-item-label">前回との比較</div>
+            <div class="report-item-value" id="report-compare">－</div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-label">記録した日</div>
+            <div class="report-item-value" id="report-days">0日</div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-label">一番浮いたもの</div>
+            <div class="report-item-value" id="report-topcat">－</div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-label">連続記録</div>
+            <div class="report-item-value" id="report-streak">0日</div>
+          </div>
+        </div>
+        <div class="report-reward" id="report-reward">記録すると、できることが表示されます</div>
+        <button class="share-btn" onclick="openShareModal()"><span data-icon="share"></span>SNSに共有</button>
+      </div>
+
+      <div class="cal-card record-calendar-only" style="display:none;">
+        <div class="calendar-page-title">継続カレンダー</div>
+        <div class="calendar-page-sub">項目を切り替えて、禁活できた日を振り返れます。</div>
+        <div class="cal-seg">
+          <button class="cal-seg-btn active" id="ccal-drink"    onclick="setCal('drink')">お酒</button>
+          <button class="cal-seg-btn"        id="ccal-smoke"    onclick="setCal('smoke')">たばこ</button>
+          <button class="cal-seg-btn"        id="ccal-gambling" onclick="setCal('gambling')">ガチャ</button>
+        </div>
+        <div class="cal-month" id="cal-month"></div>
+        <div class="cal-weekdays">
+          <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div style="font-size:10px;color:var(--text3);margin-top:10px;letter-spacing:0.5px;">金色の星 = 禁活できた日</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: REWARDS -->
+<div class="page" id="page-reward">
+  <div class="reward-page">
+    <div class="reward-page-head">
+      <div class="reward-page-title">ご褒美カタログ</div>
+      <div class="reward-page-sub">浮いたお金でできること。気になるものを選ぶだけで、目標にできます。</div>
+    </div>
+
+    <div class="reward-progress" id="reward-progress">
+      <div class="reward-progress-label">選んだご褒美</div>
+      <div class="reward-progress-name" id="reward-progress-name">まだ選んでいません</div>
+      <div class="reward-progress-track"><div class="reward-progress-fill" id="reward-progress-fill" style="width:0%"></div></div>
+      <div class="reward-progress-meta" id="reward-progress-meta">カタログから選んでください</div>
+    </div>
+
+    <div class="reward-filters">
+      <button class="reward-filter active" data-reward-filter="all" onclick="setRewardFilter('all',this)">すべて</button>
+      <button class="reward-filter" data-reward-filter="10000" onclick="setRewardFilter('10000',this)">1万円まで</button>
+      <button class="reward-filter" data-reward-filter="30000" onclick="setRewardFilter('30000',this)">3万円まで</button>
+      <button class="reward-filter" data-reward-filter="50000" onclick="setRewardFilter('50000',this)">5万円まで</button>
+      <button class="reward-filter" data-reward-filter="100000" onclick="setRewardFilter('100000',this)">10万円まで</button>
+      <button class="reward-filter" data-reward-filter="300000" onclick="setRewardFilter('300000',this)">30万円まで</button>
+      <button class="reward-filter" data-reward-filter="500000" onclick="setRewardFilter('500000',this)">50万円まで</button>
+      <button class="reward-filter" data-reward-filter="1000000" onclick="setRewardFilter('1000000',this)">100万円まで</button>
+    </div>
+    <div class="reward-grid" id="reward-grid"></div>
+  </div>
+</div>
+
+<!-- PAGE: ASSET -->
+<div class="page" id="page-asset">
+  <div class="asset-page">
+    <div class="asset-hero">
+      <div class="asset-label-row">
+        <div class="asset-hero-label">投資シミュレーター</div>
+        <button class="invest-help-btn" onclick="openInvestHelp()" aria-label="投資とNISAについて" title="投資とNISAについて">?</button>
+      </div>
+      <div class="asset-hero-title">禁活マネーを投資していたら？</div>
+      <label class="form-label">投資先</label>
+      <select class="form-select" id="fund-type" onchange="onFundChange()">
+        <option value="sp500">S&P500（米国株）</option>
+        <option value="orcan">オルカン（全世界株式）</option>
+      </select>
+      <label class="form-label">想定年利</label>
+      <select class="form-select" id="annual-rate" onchange="renderGraph();calcSim();" style="margin-bottom:0;">
+        <option value="0.05">5%</option>
+        <option value="0.065">6.5%</option>
+        <option value="0.07" selected>7%</option>
+        <option value="0.10">10%</option>
+        <option value="0.15">15%</option>
+      </select>
+    </div>
+
+    <div class="asset-body">
+      <div class="result-card">
+        <div class="result-eyebrow">積み上げたお金</div>
+        <div class="result-num"><small>¥</small><span id="p-num">0</span></div>
+        <div class="divider">投資していたら</div>
+        <div class="result-eyebrow">運用後の資産</div>
+        <div class="result-num"><small>¥</small><span id="i-num">0</span></div>
+        <div class="gain-badge" id="gain-badge">含み益 +¥0</div>
+        <div class="legend-row" style="margin-top:10px;">
+          <div class="legend-item"><div class="legend-dot" style="background:#CBD5E1;"></div>積立額</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>運用後</div>
+        </div>
+        <div class="graph-empty" id="graph-empty">ホームで記録するとグラフが表示されます</div>
+        <svg id="trend-svg" viewBox="0 0 320 150" style="width:100%;display:none;margin-top:8px;"></svg>
+        <div class="graph-note">※グラフは視覚的に強調しています</div>
+      </div>
+
+      <div class="sim-card" id="sim-card" style="display:none;">
+        <div class="sim-title">このペースで投資を続けると…</div>
+        <div class="sim-desc">直近30日間の記録から月の積立額を予測し、その金額を毎月、上で選んだ想定年利で運用した場合を計算しています。</div>
+        <div class="sim-eyebrow">予測する月の積立額</div>
+        <div class="sim-monthly" id="sim-monthly">¥0 / 月</div>
+        <table class="sim-table" id="sim-table"></table>
+      </div>
+
+      <div class="investment-disclaimer">
+        <span class="investment-disclaimer-icon">i</span>
+        <p>この試算は、一定の想定年利で運用が続くと仮定した参考値です。将来の運用成果を保証するものではなく、価格変動・手数料・税金・NISAなどの投資枠は考慮していません。</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" id="nav-home"   onclick="showPage('home',this)">
+    <div class="nav-icon" data-icon="home"></div>
+    <span>ホーム</span>
+  </button>
+  <button class="nav-item" id="nav-record" onclick="showPage('record',this)">
+    <div class="nav-icon" data-icon="record"></div>
+    <span>記録</span>
+  </button>
+  <button class="nav-item" id="nav-reward" onclick="showPage('reward',this)">
+    <div class="nav-icon" data-icon="gift"></div>
+    <span>ご褒美</span>
+  </button>
+  <button class="nav-item" id="nav-asset"  onclick="showPage('asset',this)">
+    <div class="nav-icon" data-icon="asset"></div>
+    <span>資産</span>
+  </button>
+</div>
+
+<div class="modal-bg" id="fav-modal-bg">
+  <div class="modal">
+    <div class="modal-title">よく使う商品を追加</div>
+    <input type="text" id="fav-n" placeholder="商品名（例：ストロング500ml）">
+    <input type="number" id="fav-p" placeholder="金額（例：280）">
+    <button class="modal-btn" onclick="saveFav()">追加する</button>
+  </div>
+</div>
+
+<div class="modal-bg share-modal" id="share-modal-bg">
+  <div class="modal">
+    <div class="modal-title">SNS共有用画像</div>
+    <canvas id="share-canvas" width="1080" height="1350"></canvas>
+    <div class="share-actions">
+      <button class="share-download" onclick="downloadShareImage()">画像を保存</button>
+      <button class="share-native" onclick="shareImage()"><span data-icon="share"></span>SNSに共有</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="custom-reward-modal-bg">
+  <div class="modal">
+    <div class="modal-title">自分でご褒美を設定</div>
+    <input type="text" id="custom-reward-name" placeholder="ご褒美の名前">
+    <input type="number" id="custom-reward-price" placeholder="目標金額">
+    <button class="modal-btn" onclick="saveCustomReward()">このご褒美に決める</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="invest-help-modal-bg">
+  <div class="modal">
+    <div class="modal-title">投資とNISAの基本</div>
+    <p class="invest-help-intro">試算を見る前に、知っておきたいことを簡単にまとめました。</p>
+
+    <div class="invest-help-item">
+      <div class="invest-help-visual" data-icon="invest"></div>
+      <div>
+        <div class="invest-help-title">投資とは？</div>
+        <div class="invest-help-text">お金を株式や投資信託などに回し、成長を期待することです。預金とは異なり、増えることも減ることもあります。</div>
+      </div>
+    </div>
+
+    <div class="invest-help-item">
+      <div class="invest-help-visual gold" data-icon="nisa"></div>
+      <div>
+        <div class="invest-help-title">NISAとは？</div>
+        <div class="invest-help-text">投資で得た利益が非課税になる国の制度です。NISA自体が商品ではなく、利用額には上限があります。</div>
+      </div>
+    </div>
+
+    <div class="invest-help-item">
+      <div class="invest-help-visual green" data-icon="estimate"></div>
+      <div>
+        <div class="invest-help-title">この試算について</div>
+        <div class="invest-help-text">一定の年利が続くと仮定した参考値です。実際の値動き、手数料、税金、投資枠は計算に含めていません。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const PRODUCTS = {
+    drink: [{e:'🍺',n:'缶ビール1本',p:250},{e:'🍻',n:'居酒屋1杯',p:600},{e:'🍷',n:'ワイン1杯',p:700},{e:'🍸',n:'飲み会1回',p:4000}],
+    smoke: [{e:'🚬',n:'タバコ1本',p:35},{e:'📦',n:'タバコ1箱',p:600},{e:'🔥',n:'電子タバコ',p:1500}],
+    meal:  [{e:'🍔',n:'外食1食',p:1000},{e:'🍱',n:'デリバリー1食',p:1500},{e:'🍜',n:'ランチ1食',p:800}],
+    snack: [{e:'🍪',n:'コンビニスイーツ',p:300},{e:'🍫',n:'チョコ1個',p:150},{e:'🥤',n:'ジュース1本',p:150}],
+    move:  [{e:'🚕',n:'タクシー1回',p:1500},{e:'🚗',n:'飲み会後タクシー',p:2500}],
+    other: [{e:'🎰',n:'ガチャ・ギャンブル',p:3000},{e:'🛍️',n:'衝動買い',p:2000}],
+  };
+
+  const CAT_NAMES = {drink:'お酒',smoke:'たばこ',meal:'食事',snack:'間食',move:'移動',other:'その他'};
+  const LINE_ICONS = {
+    drink: '<svg viewBox="0 0 24 24"><path d="M7 4h10l-1 8a4 4 0 0 1-8 0L7 4Z"/><path d="M9 20h6"/><path d="M12 16v4"/><path d="M8 9h8"/></svg>',
+    smoke: '<svg viewBox="0 0 24 24"><path d="M4 15h9"/><path d="M16 15h1"/><path d="M20 15h0"/><path d="M7 10c2-2 5-1 5-4"/><path d="M14 11c2-1 3-2 3-5"/></svg>',
+    meal: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M4 4l4 4"/><path d="M20 4l-4 4"/></svg>',
+    snack: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M9 10h.01"/><path d="M14 9h.01"/><path d="M15 14h.01"/><path d="M10 15h.01"/></svg>',
+    move: '<svg viewBox="0 0 24 24"><path d="M6 15h12"/><path d="M7 15l1.5-5h7L17 15"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/></svg>',
+    other: '<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/><circle cx="12" cy="12" r="8"/></svg>',
+    home: '<svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>',
+    record: '<svg viewBox="0 0 24 24"><path d="M5 19V9"/><path d="M12 19V5"/><path d="M19 19v-8"/><path d="M4 19h16"/></svg>',
+    asset: '<svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M16 7h4v4"/><path d="M4 20h16"/></svg>',
+    gift: '<svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18V6H3v3Z"/><path d="M12 6c-1-4-6-3-5-1 1 2 5 1 5 1Zm0 0c1-4 6-3 5-1-1 2-5 1-5 1Z"/></svg>',
+    coffee: '<svg viewBox="0 0 24 24"><path d="M5 8h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"/><path d="M16 10h2a3 3 0 0 1 0 6h-2M8 4v2m4-2v2"/></svg>',
+    book: '<svg viewBox="0 0 24 24"><path d="M4 5a3 3 0 0 1 3-2h5v16H7a3 3 0 0 0-3 2V5Zm16 0a3 3 0 0 0-3-2h-5v16h5a3 3 0 0 1 3 2V5Z"/></svg>',
+    movie: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14m8-14v14M3 9h5m8 0h5M3 15h5m8 0h5"/></svg>',
+    dining: '<svg viewBox="0 0 24 24"><path d="M7 3v8m-3-8v5a3 3 0 0 0 6 0V3M7 11v10M17 3v18m0-18c3 2 3 7 0 9"/></svg>',
+    spa: '<svg viewBox="0 0 24 24"><path d="M4 14h16a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6Z"/><path d="M8 11c-2-2 2-3 0-6m5 6c-2-2 2-3 0-6m5 6c-2-2 2-3 0-6"/></svg>',
+    bag: '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>',
+    travel: '<svg viewBox="0 0 24 24"><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/><circle cx="12" cy="12" r="9"/></svg>',
+    hotel: '<svg viewBox="0 0 24 24"><path d="M4 20V5h10v15M14 10h6v10M8 9h2m-2 4h2m-2 4h2m9-3h1m-1 3h1M2 20h20"/></svg>',
+    tech: '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>',
+    invest: '<svg viewBox="0 0 24 24"><path d="M4 18V9m5 9V5m5 13v-6m5 6V3M2 21h20"/></svg>',
+    share: '<svg viewBox="0 0 24 24"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 13v7h14v-7"/></svg>',
+    nisa: '<svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/><path d="M9 8h6m-6 3h6m-3-3v7m-2 0h4"/></svg>',
+    estimate: '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2m4 0h2m-8 4h2m4 0h2"/></svg>'
+  };
+
+  function paintLineIcons() {
+    document.querySelectorAll('[data-icon]').forEach(el => {
+      el.innerHTML = LINE_ICONS[el.dataset.icon] || LINE_ICONS.other;
+    });
+  }
+
+  let logs = JSON.parse(localStorage.getItem('kk_logs') || '[]');
+  let favs = JSON.parse(localStorage.getItem('kk_favs') || '{"drink":[],"smoke":[],"meal":[],"snack":[],"move":[],"other":[]}');
+  let curCat = null;
+  let logDay = 'today';
+  let reportPeriod = 'week';
+  let rewardFilter = 'all';
+  let selectedReward = JSON.parse(localStorage.getItem('kk_reward') || 'null');
+
+  const REWARDS = [
+    {id:'coffee', name:'少し良いカフェ', price:1000, icon:'coffee'},
+    {id:'books', name:'本・漫画をまとめ買い', price:3000, icon:'book'},
+    {id:'movie', name:'映画と食事', price:5000, icon:'movie'},
+    {id:'dinner', name:'少し良いディナー', price:10000, icon:'dining'},
+    {id:'beauty', name:'美容・趣味のアイテム', price:15000, icon:'bag'},
+    {id:'spa', name:'日帰り温泉・サウナ', price:20000, icon:'spa'},
+    {id:'trip', name:'近場への小旅行', price:30000, icon:'travel'},
+    {id:'hotel', name:'ホテルで一泊', price:50000, icon:'hotel'},
+    {id:'tech', name:'欲しかった家電', price:50000, icon:'tech'},
+    {id:'invest', name:'投資資金にまわす', price:50000, icon:'invest'},
+    {id:'domestic-trip', name:'国内旅行を楽しむ', price:100000, icon:'travel'},
+    {id:'home-upgrade', name:'暮らしを変える家電', price:100000, icon:'tech'},
+    {id:'overseas-trip', name:'海外旅行へ行く', price:300000, icon:'travel'},
+    {id:'creative-pc', name:'高性能PCを買う', price:300000, icon:'tech'},
+    {id:'premium-bag', name:'憧れのバッグを買う', price:500000, icon:'bag'},
+    {id:'luxury-trip', name:'特別な旅行を楽しむ', price:500000, icon:'hotel'},
+    {id:'long-trip', name:'長期旅行へ出かける', price:1000000, icon:'travel'},
+    {id:'new-life', name:'新生活の家具・家電を揃える', price:1000000, icon:'tech'}
+  ];
+
+  function appNow() {
+    return new Date();
+  }
+
+  function totalThroughCurrentDate() {
+    const end=appNow();
+    end.setHours(23,59,59,999);
+    return logs.reduce((sum,l)=>new Date(l.d)<=end?sum+(l.u||l.p)*(l.q||1):sum,0);
+  }
+
+  function showPage(name, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    if (btn) btn.classList.add('active');
+    if (name === 'record') renderRecord();
+    if (name === 'reward') renderRewards();
+    if (name === 'asset') { renderGraph(); calcSim(); }
+  }
+
+  function openRewards() {
+    showPage('reward', document.getElementById('nav-reward'));
+  }
+
+  function setLogDay(day) {
+    logDay = day;
+    document.getElementById('logday-today').classList.toggle('active', day === 'today');
+    document.getElementById('logday-yesterday').classList.toggle('active', day === 'yesterday');
+    document.querySelector('.q-head').textContent = day === 'today' ? '今日、何が浮いた？' : '昨日、何が浮いた？';
+    renderHome();
+  }
+
+  function getLogDate() {
+    const d = appNow();
+    if (logDay === 'yesterday') d.setDate(d.getDate() - 1);
+    return d;
+  }
+
+  function selectCat(cat) {
+    curCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('cat-' + cat).classList.add('active');
+    document.getElementById('sheet-title').textContent = CAT_NAMES[cat] + 'で浮いたものは？';
+    const fl = (favs[cat]||[]).map((p,i) => `
+      <div class="product-item" onclick="addLog('${cat}','${p.n}',${p.p},'${p.e}')">
+        <div class="p-icon">${LINE_ICONS[cat]}</div><div class="p-name">${p.n}</div>
+        <span onclick="event.stopPropagation();rmFav('${cat}',${i})" style="font-size:11px;color:#EF4444;cursor:pointer;margin-right:4px;">削除</span>
+        <div class="p-price">¥${p.p.toLocaleString()}</div>
+      </div>`).join('');
+    const dl = PRODUCTS[cat].map(p => `
+      <div class="product-item" onclick="addLog('${cat}','${p.n}',${p.p},'${p.e}')">
+        <div class="p-icon">${LINE_ICONS[cat]}</div><div class="p-name">${p.n}</div>
+        <div class="p-price">¥${p.p.toLocaleString()}</div>
+      </div>`).join('');
+    document.getElementById('product-list').innerHTML = fl + dl;
+    document.getElementById('product-sheet').classList.add('show');
+  }
+
+  function openFavModal() {
+    if (!curCat) { toast('先にカテゴリを選んでください'); return; }
+    ['fav-n','fav-p'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('fav-modal-bg').classList.add('show');
+  }
+
+  function saveFav() {
+    const e='';
+    const n=document.getElementById('fav-n').value;
+    const p=parseInt(document.getElementById('fav-p').value);
+    if (!n||!p) { toast('商品名と金額を入力してください'); return; }
+    favs[curCat]=favs[curCat]||[];
+    favs[curCat].unshift({e,n,p});
+    localStorage.setItem('kk_favs',JSON.stringify(favs));
+    document.getElementById('fav-modal-bg').classList.remove('show');
+    toast('追加しました');
+    selectCat(curCat);
+  }
+
+  function rmFav(cat,i) {
+    favs[cat].splice(i,1);
+    localStorage.setItem('kk_favs',JSON.stringify(favs));
+    selectCat(cat);
+  }
+
+  document.getElementById('fav-modal-bg').addEventListener('click', e => {
+    if (e.target.id==='fav-modal-bg') e.target.classList.remove('show');
+  });
+
+  const MILESTONES=[3000,5000,10000,20000];
+
+  function todayTotal() {
+    const k=appNow().toDateString();
+    return logs.filter(l=>new Date(l.d).toDateString()===k).reduce((s,l)=>s+(l.u||l.p)*(l.q||1),0);
+  }
+
+  function streakDays() {
+    let streak=0; const d=appNow(); d.setHours(0,0,0,0);
+    const cur=new Date(d);
+    while(true) {
+      if (!logs.some(l=>new Date(l.d).toDateString()===cur.toDateString())) break;
+      streak++; cur.setDate(cur.getDate()-1);
+    }
+    return streak;
+  }
+
+  function addLog(cat,name,price,emoji) {
+    const isToday = logDay === 'today';
+    const before=isToday ? todayTotal() : 0;
+    logs.push({id:Date.now()+Math.random(),cat,n:name,e:emoji,u:price,q:1,d:getLogDate().toISOString()});
+    saveLogs();
+    toast((isToday ? '' : '昨日分に ') + '+¥'+price.toLocaleString()+' 記録しました');
+    spawnEffect(price,window.innerWidth/2,window.innerHeight/3);
+    const after=before+price;
+    const crossed=isToday ? MILESTONES.filter(m=>before<m&&after>=m) : [];
+    if (crossed.length) setTimeout(()=>showMilestone(crossed[crossed.length-1]),500);
+  }
+
+  function logCustom() {
+    if (!curCat) { toast('カテゴリを選んでください'); return; }
+    const n=document.getElementById('custom-name').value||'その他';
+    const p=parseInt(document.getElementById('custom-price').value);
+    if (!p) { toast('金額を入力してください'); return; }
+    addLog(curCat,n,p,'');
+    document.getElementById('custom-name').value='';
+    document.getElementById('custom-price').value='';
+  }
+
+  function changeQty(id,d) {
+    const l=logs.find(x=>x.id===id); if(!l) return;
+    l.q=Math.max(1,(l.q||1)+d); saveLogs();
+  }
+
+  function delLog(id) { logs=logs.filter(l=>l.id!==id); saveLogs(); }
+
+  function saveLogs() {
+    localStorage.setItem('kk_logs',JSON.stringify(logs));
+    renderHome();
+  }
+
+  function animCount(el, target, dur) {
+    const t0=performance.now();
+    function step(t) {
+      const p=Math.min(1,(t-t0)/dur);
+      const ease=1-Math.pow(1-p,4);
+      el.textContent=Math.round(target*ease).toLocaleString();
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function renderHome() {
+    const total=totalThroughCurrentDate();
+    animCount(document.getElementById('hero-total'), total, 600);
+    document.getElementById('header-streak').textContent=streakDays()+'日連続';
+    document.getElementById('hero-today').textContent='+¥'+todayTotal().toLocaleString();
+    renderQuick();
+    renderRewardNudge(total);
+
+    const selectedDate=getLogDate().toDateString();
+    const tl=logs.filter(l=>new Date(l.d).toDateString()===selectedDate);
+    const sec=document.getElementById('today-section');
+    document.getElementById('log-sec-label').textContent=logDay==='today'?'今日の記録':'昨日の記録';
+    if (!tl.length) {
+      sec.style.display='none';
+    } else {
+      sec.style.display='block';
+      document.getElementById('today-list').innerHTML=tl.slice().reverse().map(l=>`
+        <div class="log-row">
+          <div class="log-icon">${LINE_ICONS[l.cat] || LINE_ICONS.other}</div>
+          <div class="log-name">${l.n}</div>
+          <div class="qty-ctrl">
+            <div class="qty-btn" onclick="changeQty(${l.id},-1)">−</div>
+            <div class="qty-num">${l.q||1}</div>
+            <div class="qty-btn" onclick="changeQty(${l.id},1)">＋</div>
+          </div>
+          <div class="log-amt">+¥${((l.u||l.p)*(l.q||1)).toLocaleString()}</div>
+          <div class="del-btn" onclick="delLog(${l.id})">×</div>
+        </div>`).join('');
+    }
+  }
+
+  function renderQuick() {
+    const unique=[];
+    logs.slice().reverse().forEach(l=>{
+      const key=l.cat+'|'+l.n+'|'+(l.u||l.p);
+      if(!unique.some(x=>x.key===key)) unique.push({key,cat:l.cat,n:l.n,p:l.u||l.p,e:l.e});
+    });
+    const items=unique.slice(0,3);
+    const section=document.getElementById('quick-section');
+    if(!items.length) { section.style.display='none'; return; }
+    section.style.display='block';
+    document.getElementById('quick-list').innerHTML=items.map(item=>`
+      <button class="quick-btn" onclick="quickAdd('${encodeURIComponent(JSON.stringify(item))}')">
+        <span class="quick-icon">${LINE_ICONS[item.cat]||LINE_ICONS.other}</span>
+        <span>
+          <span class="quick-name">${item.n}</span>
+          <span class="quick-price">¥${item.p.toLocaleString()}</span>
+        </span>
+      </button>`).join('');
+  }
+
+  function quickAdd(encodedItem) {
+    const item=JSON.parse(decodeURIComponent(encodedItem));
+    addLog(item.cat,item.n,item.p,item.e||'');
+  }
+
+  function renderRewardNudge(total) {
+    const nudge=document.getElementById('reward-nudge');
+    const reached=[1000000,500000,300000,100000,50000,30000,10000].find(v=>total>=v);
+    if(!reached || (selectedReward&&selectedReward.price>=reached)) { nudge.style.display='none'; return; }
+    nudge.style.display='flex';
+    document.getElementById('reward-nudge-title').textContent='¥'+reached.toLocaleString()+'で何をする？';
+  }
+
+  let recRange='day';
+  let recordView='summary';
+
+  function setRecordView(view) {
+    recordView=view;
+    document.getElementById('record-view-summary').classList.toggle('active',view==='summary');
+    document.getElementById('record-view-calendar').classList.toggle('active',view==='calendar');
+    document.querySelectorAll('.record-summary-only').forEach(el=>el.style.display=view==='summary'?'':'none');
+    document.querySelectorAll('.record-calendar-only').forEach(el=>el.style.display=view==='calendar'?'':'none');
+    if(view==='calendar') renderCal();
+  }
+
+  function setRange(r) {
+    recRange=r;
+    ['day','week','month'].forEach(x=>document.getElementById('rtab-'+x).classList.toggle('active',x===r));
+    renderRecord();
+  }
+
+  function dayAmt(d) {
+    const k=d.toDateString();
+    return logs.filter(l=>new Date(l.d).toDateString()===k).reduce((s,l)=>s+(l.u||l.p)*(l.q||1),0);
+  }
+
+  function renderRecord() {
+    renderCal();
+    renderReport();
+    const today=appNow(); today.setHours(23,59,59,999); let buckets=[];
+    if (recRange==='day') {
+      for (let i=6;i>=0;i--) { const d=new Date(today); d.setDate(d.getDate()-i); buckets.push({lbl:['日','月','火','水','木','金','土'][d.getDay()],val:dayAmt(d),today:i===0}); }
+      document.getElementById('chart-period').textContent='直近7日間';
+    } else if (recRange==='week') {
+      for (let i=7;i>=0;i--) {
+        const end=new Date(today); end.setDate(end.getDate()-i*7);
+        const start=new Date(end); start.setDate(start.getDate()-6);
+        let val=0; for (let d=new Date(start);d<=end;d.setDate(d.getDate()+1)) val+=dayAmt(d);
+        buckets.push({lbl:`${start.getMonth()+1}/${start.getDate()}`,val,today:i===0});
+      }
+      document.getElementById('chart-period').textContent='直近8週間';
+    } else {
+      for (let i=5;i>=0;i--) {
+        const d=new Date(today.getFullYear(),today.getMonth()-i,1);
+        const y=d.getFullYear(),m=d.getMonth(); let val=0;
+        logs.forEach(l=>{ const ld=new Date(l.d); if(ld<=today&&ld.getFullYear()===y&&ld.getMonth()===m) val+=(l.u||l.p)*(l.q||1); });
+        buckets.push({lbl:(m+1)+'月',val,today:i===0});
+      }
+      document.getElementById('chart-period').textContent='直近6ヶ月';
+    }
+
+    const maxVal=Math.max(...buckets.map(b=>b.val),1);
+    document.getElementById('bar-wrap').innerHTML=buckets.map(b=>`
+      <div class="bar-col" onclick="this.classList.toggle('show-tip')">
+        <div class="bar-tip">¥${Math.round(b.val).toLocaleString()}</div>
+        <div class="bar-inner ${b.val>0?'filled':''} ${b.today?'today':''}" style="height:${Math.max(2,(b.val/maxVal)*100)}%"></div>
+      </div>`).join('');
+    document.getElementById('bar-labels').innerHTML=buckets.map(b=>`<span>${b.lbl}</span>`).join('');
+
+    const total=buckets.reduce((s,b)=>s+b.val,0);
+    document.getElementById('chart-amount').textContent='¥'+Math.round(buckets[buckets.length-1].val).toLocaleString();
+    document.getElementById('chart-sub').textContent=recRange==='day'?'今日の禁活マネー':recRange==='week'?'今週の禁活マネー':'今月の禁活マネー';
+    document.getElementById('stat-avg').textContent='¥'+Math.round(total/buckets.length).toLocaleString();
+    document.getElementById('stat-total').textContent='¥'+Math.round(total).toLocaleString();
+
+    const now=appNow(); now.setHours(23,59,59,999); let rs;
+    if (recRange==='day') { rs=new Date(now); rs.setDate(now.getDate()-6); }
+    else if (recRange==='week') { rs=new Date(now); rs.setDate(now.getDate()-56); }
+    else { rs=new Date(now.getFullYear(),now.getMonth()-5,1); }
+
+    const byCat={};
+    logs.forEach(l=>{ const d=new Date(l.d); if(d>=rs&&d<=now) { const amt=(l.u||l.p)*(l.q||1); if(!byCat[l.cat]) byCat[l.cat]={cnt:0,total:0}; byCat[l.cat].cnt+=l.q||1; byCat[l.cat].total+=amt; } });
+
+    const keys=Object.keys(byCat);
+    const hl=document.getElementById('habit-list');
+    if (!keys.length) { hl.innerHTML='<div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">ホームで記録を始めましょう</div>'; return; }
+    hl.innerHTML=keys.map(cat=>`
+      <div class="habit-card">
+        <div class="habit-icon ${cat}">${LINE_ICONS[cat] || LINE_ICONS.other}</div>
+        <div class="habit-info"><div class="habit-name">${CAT_NAMES[cat]}</div><div class="habit-cnt">${byCat[cat].cnt}回記録</div></div>
+        <div class="habit-amt">¥${byCat[cat].total.toLocaleString()}</div>
+      </div>`).join('');
+  }
+
+  function setReportPeriod(period) {
+    reportPeriod=period;
+    document.getElementById('report-week').classList.toggle('active',period==='week');
+    document.getElementById('report-month').classList.toggle('active',period==='month');
+    renderReport();
+  }
+
+  function sumBetween(start,end) {
+    return logs.reduce((sum,l)=>{
+      const d=new Date(l.d);
+      return d>=start&&d<=end ? sum+(l.u||l.p)*(l.q||1) : sum;
+    },0);
+  }
+
+  function getReportData(period) {
+    const now=appNow();
+    const end=new Date(now);
+    end.setHours(23,59,59,999);
+    let start,prevStart,prevEnd,label;
+    if(period==='week') {
+      start=new Date(now);
+      const mondayOffset=(start.getDay()+6)%7;
+      start.setDate(start.getDate()-mondayOffset);
+      start.setHours(0,0,0,0);
+      prevEnd=new Date(start.getTime()-1);
+      prevStart=new Date(start);
+      prevStart.setDate(prevStart.getDate()-7);
+      label='今週の浮いたお金';
+    } else {
+      start=new Date(now.getFullYear(),now.getMonth(),1);
+      prevEnd=new Date(start.getTime()-1);
+      prevStart=new Date(now.getFullYear(),now.getMonth()-1,1);
+      label='今月の浮いたお金';
+    }
+
+    const periodLogs=logs.filter(l=>{ const d=new Date(l.d); return d>=start&&d<=end; });
+    const total=periodLogs.reduce((s,l)=>s+(l.u||l.p)*(l.q||1),0);
+    const previous=sumBetween(prevStart,prevEnd);
+    const days=new Set(periodLogs.map(l=>new Date(l.d).toDateString())).size;
+    const byCat={};
+    periodLogs.forEach(l=>byCat[l.cat]=(byCat[l.cat]||0)+(l.u||l.p)*(l.q||1));
+    const topKey=Object.keys(byCat).sort((a,b)=>byCat[b]-byCat[a])[0];
+    return {total,previous,days,topKey,topAmount:topKey?byCat[topKey]:0,label};
+  }
+
+  function lifeExamples(total) {
+    const levels=[
+      {amount:1000000,items:[['旅','長期の海外旅行を楽しむ予算'],['新生活','家具・家電をまとめて揃える予算'],['学び','資格取得やスクールに使える予算']]},
+      {amount:500000,items:[['旅','特別な海外旅行を楽しむ予算'],['PC','高性能PCと周辺機器を揃える予算'],['買い物','憧れのバッグや時計を選べる予算']]},
+      {amount:300000,items:[['旅','海外旅行1回分の予算'],['PC','高性能PC1台分の予算'],['宿','上質な温泉宿に数回泊まる予算']]},
+      {amount:100000,items:[['旅','国内旅行1回分'],['家電','ロボット掃除機1台分'],['服','上質なコート1着分']]},
+      {amount:60000,items:[['旅','週末旅行1回分'],['ゲーム','Switch 2本体クラス'],['食','高級焼肉を2人で楽しむくらい']]},
+      {amount:40000,items:[['宿','近場のホテル1泊分'],['ゲーム','Nintendo Switch本体クラス'],['食','国産牛ステーキディナーを2人で楽しむくらい']]},
+      {amount:25000,items:[['旅','日帰り旅行1回分'],['音楽','ワイヤレスイヤホン1台分'],['食','少し良いコース料理を2人で楽しむくらい']]},
+      {amount:15000,items:[['美容','美容院＋ヘアケア1回分'],['ゲーム','新作ゲームソフト2本分'],['食','国産牛ステーキディナー1回分']]},
+      {amount:10000,items:[['食','少し良いステーキディナー1回分'],['ゲーム','新作ゲームソフト1本分'],['休日','日帰り温泉＋食事1回分']]},
+      {amount:6000,items:[['食','飲み会1回分'],['映画','映画を2人で観るくらい'],['美容','少し良いコスメ1点分']]},
+      {amount:4000,items:[['食','友だちとのご飯1回分'],['食材','家で食べる良い牛肉1枚分'],['日用品','ドラッグストアで日用品をまとめ買い']]},
+      {amount:2200,items:[['映画','映画＋ドリンク1回分'],['昼食','ランチ約2回分'],['本','漫画を約3冊買うくらい']]},
+      {amount:1200,items:[['昼食','少し良いランチ1回分'],['本','文庫本約2冊分'],['配信','動画配信サービス約1か月分']]},
+      {amount:700,items:[['カフェ','カフェ1回分'],['本','漫画1冊分'],['朝食','コンビニ朝食1回分']]},
+      {amount:300,items:[['おやつ','コンビニスイーツ1個分'],['飲み物','ペットボトル飲料約2本分'],['貯金','500円玉に近い一歩']]},
+      {amount:150,items:[['飲み物','自販機の飲み物1本分'],['おやつ','小さなお菓子1個分'],['交通','電車の初乗りに近い金額']]}
+    ];
+    const level=levels.find(item=>total>=item.amount);
+    if(level) return level.items.map(item=>{
+      const text=item[1].includes('漫画')
+        ? '漫画を約'+Math.max(1,Math.floor(total/650))+'冊買うくらい'
+        : item[1];
+      return {tag:item[0],text};
+    });
+    return [{tag:'あと',text:'¥'+Math.max(0,150-total).toLocaleString()+'で自販機の飲み物1本分くらい'}];
+  }
+
+  function rewardPossibility(total) {
+    const first=lifeExamples(total)[0];
+    return first.text.endsWith('くらい')?first.text:first.text+'くらい';
+  }
+
+  function renderReport() {
+    const data=getReportData(reportPeriod);
+    document.getElementById('report-period-label').textContent=data.label;
+    document.getElementById('report-total').textContent='¥'+data.total.toLocaleString();
+    const diff=data.total-data.previous;
+    document.getElementById('report-compare').textContent=data.previous===0 ? '今回から開始' : (diff>=0?'+':'−')+'¥'+Math.abs(diff).toLocaleString();
+    document.getElementById('report-days').textContent=data.days+'日';
+    document.getElementById('report-topcat').textContent=data.topKey ? CAT_NAMES[data.topKey] : '－';
+    document.getElementById('report-streak').textContent=streakDays()+'日';
+    document.getElementById('report-reward').innerHTML=data.total
+      ? '<div class="life-example-title">生活に置き換えると<span>金額は目安</span></div><ul class="life-example-list">'+
+        lifeExamples(data.total).map(item=>'<li><span class="life-example-tag">'+item.tag+'</span><span>'+item.text+'</span></li>').join('')+
+        '</ul>'
+      : '記録すると、できることが表示されます';
+  }
+
+  function setRewardFilter(filter,button) {
+    rewardFilter=filter;
+    document.querySelectorAll('.reward-filter').forEach(b=>b.classList.remove('active'));
+    button.classList.add('active');
+    renderRewards();
+  }
+
+  function renderRewards() {
+    const total=totalThroughCurrentDate();
+    let items=REWARDS;
+    if(rewardFilter!=='all') items=items.filter(r=>r.price<=Number(rewardFilter));
+    const catalogCards=items.map(r=>`
+      <article class="reward-card ${selectedReward&&selectedReward.id===r.id?'selected':''}">
+        <div class="reward-thumb">${LINE_ICONS[r.icon]||LINE_ICONS.gift}</div>
+        <div class="reward-info">
+          <div class="reward-name">${r.name}</div>
+          <div class="reward-price">¥${r.price.toLocaleString()}</div>
+          <button class="reward-select" onclick="selectReward('${r.id}')">${selectedReward&&selectedReward.id===r.id?'選択中':'これを目標にする'}</button>
+        </div>
+      </article>`).join('');
+    const customCard=`
+      <article class="reward-card ${selectedReward&&selectedReward.custom?'selected':''}">
+        <div class="reward-thumb">${LINE_ICONS.gift}</div>
+        <div class="reward-info">
+          <div class="reward-name">自分でご褒美を設定</div>
+          <div class="reward-price custom">名前と金額を自由に設定</div>
+          <button class="reward-select" onclick="openCustomRewardModal()">${selectedReward&&selectedReward.custom?'設定中':'入力する'}</button>
+        </div>
+      </article>`;
+    document.getElementById('reward-grid').innerHTML=catalogCards+customCard;
+
+    if(selectedReward) {
+      const pct=Math.min(100,total/selectedReward.price*100);
+      document.getElementById('reward-progress-name').textContent=selectedReward.name;
+      document.getElementById('reward-progress-fill').style.width=pct+'%';
+      document.getElementById('reward-progress-meta').textContent=total>=selectedReward.price
+        ? '達成しました'
+        : 'あと¥'+(selectedReward.price-total).toLocaleString();
+    } else {
+      document.getElementById('reward-progress-name').textContent='まだ選んでいません';
+      document.getElementById('reward-progress-fill').style.width='0%';
+      document.getElementById('reward-progress-meta').textContent='カタログから選んでください';
+    }
+  }
+
+  function selectReward(id) {
+    selectedReward=REWARDS.find(r=>r.id===id)||null;
+    localStorage.setItem('kk_reward',JSON.stringify(selectedReward));
+    renderRewards();
+    renderHome();
+    toast('ご褒美を設定しました');
+  }
+
+  function openCustomRewardModal() {
+    document.getElementById('custom-reward-name').value=selectedReward&&selectedReward.custom?selectedReward.name:'';
+    document.getElementById('custom-reward-price').value=selectedReward&&selectedReward.custom?selectedReward.price:'';
+    document.getElementById('custom-reward-modal-bg').classList.add('show');
+  }
+
+  function saveCustomReward() {
+    const name=document.getElementById('custom-reward-name').value.trim();
+    const price=parseInt(document.getElementById('custom-reward-price').value,10);
+    if(!name||!price||price<1) { toast('ご褒美の名前と金額を入力してください'); return; }
+    selectedReward={id:'custom',name,price,icon:'gift',custom:true};
+    localStorage.setItem('kk_reward',JSON.stringify(selectedReward));
+    document.getElementById('custom-reward-modal-bg').classList.remove('show');
+    renderRewards();
+    renderHome();
+    toast('ご褒美を設定しました');
+  }
+
+  document.getElementById('custom-reward-modal-bg').addEventListener('click',e=>{
+    if(e.target.id==='custom-reward-modal-bg') e.target.classList.remove('show');
+  });
+
+
+  let calCat='drink';
+
+  function setCal(cat) {
+    calCat=cat;
+    ['drink','smoke','gambling'].forEach(c=>document.getElementById('ccal-'+c).classList.toggle('active',c===cat));
+    renderCal();
+  }
+
+  function hasLogOn(cat,date) {
+    const k=date.toDateString();
+    return logs.some(l=>{
+      if (cat==='gambling') return l.n&&(l.n.includes('ガチャ')||l.n.includes('ギャンブル'))&&new Date(l.d).toDateString()===k;
+      return l.cat===cat&&new Date(l.d).toDateString()===k;
+    });
+  }
+
+  function renderCal() {
+    const today=appNow(); today.setHours(0,0,0,0);
+    const y=today.getFullYear(),m=today.getMonth();
+    const first=new Date(y,m,1); const days=new Date(y,m+1,0).getDate();
+    document.getElementById('cal-month').textContent=`${y}年${m+1}月`;
+    let cells='';
+    for (let i=0;i<first.getDay();i++) cells+='<div class="cal-cell empty"></div>';
+    for (let d=1;d<=days;d++) {
+      const cd=new Date(y,m,d); let cls='cal-cell';
+      if (cd>today) cls+=' future';
+      else if (hasLogOn(calCat,cd)) cls+=' success';
+      else cls+=' fail';
+      if (cd.getTime()===today.getTime()) cls+=' today';
+      cells+=`<div class="${cls}">${d}</div>`;
+    }
+    document.getElementById('cal-grid').innerHTML=cells;
+  }
+
+  function onFundChange() {
+    document.getElementById('annual-rate').value=document.getElementById('fund-type').value==='sp500'?'0.07':'0.065';
+    renderGraph(); calcSim();
+  }
+
+  function animNum(el,target) {
+    const dur=800,t0=performance.now();
+    function step(t) { const p=Math.min(1,(t-t0)/dur); el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString(); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+
+  function renderGraph() {
+    const empty=document.getElementById('graph-empty'),svg=document.getElementById('trend-svg');
+    const currentEnd=appNow(); currentEnd.setHours(23,59,59,999);
+    const graphLogs=logs.filter(l=>new Date(l.d)<=currentEnd);
+    if (!graphLogs.length) {
+      empty.style.display='block';
+      svg.style.display='none';
+      document.getElementById('p-num').textContent='0';
+      document.getElementById('i-num').textContent='0';
+      document.getElementById('gain-badge').textContent='含み益 +¥0';
+      return;
+    }
+    empty.style.display='none'; svg.style.display='block';
+    const rate=parseFloat(document.getElementById('annual-rate').value)||0.07,dr=rate/365;
+    const sorted=graphLogs.slice().sort((a,b)=>new Date(a.d)-new Date(b.d));
+    const s0=new Date(sorted[0].d); s0.setHours(0,0,0,0);
+    const td=appNow(); td.setHours(0,0,0,0);
+    const days=Math.max(1,Math.round((td-s0)/86400000));
+    const ps=[],is_=[];
+    for (let d=0;d<=days;d++) {
+      const cut=new Date(s0.getTime()+d*86400000); let pp=0,ii=0;
+      sorted.forEach(l=>{ const ld=new Date(l.d); ld.setHours(0,0,0,0); if(ld<=cut) { const amt=(l.u||l.p)*(l.q||1); pp+=amt; ii+=amt*Math.pow(1+dr,Math.max(0,Math.round((cut-ld)/86400000))); } });
+      ps.push(pp); is_.push(ii);
+    }
+    const ds=is_.map((v,i)=>ps[i]+(v-ps[i])*12),mx=Math.max(...ds,1),W=320,H=150,P=8;
+    function pts(arr) { return arr.map((v,i)=>{ const x=P+(i/Math.max(1,days))*(W-P*2),y=H-P-(v/mx)*(H-P*2); return `${x.toFixed(1)},${y.toFixed(1)}`; }).join(' '); }
+    const pp=pts(ps),ip=pts(ds),lp=ip.split(' ').pop().split(','),lpp=pp.split(' ').pop().split(',');
+    svg.innerHTML=`<polyline points="${ip}" fill="none" stroke="#2455E0" stroke-width="2.5"/><polyline points="${pp}" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="4,3"/><circle cx="${lp[0]}" cy="${lp[1]}" r="4" fill="#2455E0"/><circle cx="${lpp[0]}" cy="${lpp[1]}" r="3" fill="#CBD5E1"/>`;
+    const fp=ps[ps.length-1],fi=is_[is_.length-1];
+    animNum(document.getElementById('p-num'),fp);
+    animNum(document.getElementById('i-num'),fi);
+    const gain=fi-fp,pct=fp>0?(gain/fp*100).toFixed(2):'0.00';
+    document.getElementById('gain-badge').textContent=`含み益 +¥${Math.round(gain).toLocaleString()}（+${pct}%）`;
+  }
+
+  function calcSim() {
+    const today=appNow(); today.setHours(0,0,0,0);
+    const cut=new Date(today); cut.setDate(today.getDate()-29);
+    const first=logs.length?new Date(Math.min(...logs.map(l=>new Date(l.d).getTime()))):today;
+    first.setHours(0,0,0,0);
+    const win=logs.reduce((s,l)=>{ const d=new Date(l.d); d.setHours(0,0,0,0); return d>=cut&&d<=today?s+(l.u||l.p)*(l.q||1):s; },0);
+    const mo=logs.length?Math.round(win/Math.min(30,Math.max(1,Math.round((today-first)/86400000)+1))*30):0;
+    if (!mo) { document.getElementById('sim-card').style.display='none'; return; }
+    document.getElementById('sim-card').style.display='block';
+    document.getElementById('sim-monthly').textContent='¥'+mo.toLocaleString()+' / 月';
+    const r=parseFloat(document.getElementById('annual-rate').value)||0.07,mr=r/12;
+    document.getElementById('sim-table').innerHTML=[1,3,5,10,20,30].map(y=>{ let t=0; for(let i=0;i<y*12;i++) t=(t+mo)*(1+mr); return `<tr><td class="yr">${y}年後</td><td class="amt ${y===30?'big':''}">¥${Math.round(t).toLocaleString()}</td></tr>`; }).join('');
+  }
+
+  function spawnEffect(amt,x,y) {
+    const tier=amt>=5000?3:amt>=3000?2:1;
+    const el=document.createElement('div');
+    el.className='float-txt t'+tier;
+    el.textContent='+¥'+amt.toLocaleString()+(tier===3?'!':'');
+    el.style.left=x+'px'; el.style.top=y+'px';
+    document.body.appendChild(el); setTimeout(()=>el.remove(),1300);
+    if (tier>=2) {
+      const colors=['#2455E0','#FFB800','#10B981','#8B5CF6','#F43F5E'];
+      for(let i=0;i<(tier===3?24:12);i++) {
+        const p=document.createElement('div'); p.className='fx-p';
+        const sz=4+Math.random()*7;
+        p.style.cssText=`width:${sz}px;height:${sz}px;background:${colors[i%colors.length]};left:${x}px;top:${y}px;`;
+        const a=Math.random()*Math.PI*2,dist=40+Math.random()*100,dur=500+Math.random()*500;
+        document.body.appendChild(p);
+        p.animate([{transform:'translate(0,0) scale(1.2)',opacity:1},{transform:`translate(${Math.cos(a)*dist}px,${Math.sin(a)*dist-20}px) scale(0.1)`,opacity:0}],{duration:dur,easing:'cubic-bezier(.15,.85,.25,1)',fill:'forwards'});
+        setTimeout(()=>p.remove(),dur+100);
+      }
+    }
+    if (tier===3) { const f=document.createElement('div'); f.className='fx-flash'; document.body.appendChild(f); setTimeout(()=>f.remove(),600); }
+  }
+
+  function showMilestone(m) {
+    const el=document.createElement('div'); el.className='milestone-pop';
+    el.innerHTML=`¥${m.toLocaleString()} 突破！<small>禁活マネーが増えています</small>`;
+    document.body.appendChild(el); setTimeout(()=>el.remove(),2100);
+  }
+
+  function openInvestHelp() {
+    document.getElementById('invest-help-modal-bg').classList.add('show');
+  }
+
+  document.getElementById('invest-help-modal-bg').addEventListener('click',e=>{
+    if(e.target.id==='invest-help-modal-bg') e.target.classList.remove('show');
+  });
+
+  function openShareModal() {
+    renderShareCanvas();
+    document.getElementById('share-modal-bg').classList.add('show');
+  }
+
+  document.getElementById('share-modal-bg').addEventListener('click',e=>{
+    if(e.target.id==='share-modal-bg') e.target.classList.remove('show');
+  });
+
+  function drawRoundRect(ctx,x,y,w,h,r,fill) {
+    ctx.beginPath();
+    ctx.roundRect(x,y,w,h,r);
+    ctx.fillStyle=fill;
+    ctx.fill();
+  }
+
+  function drawShareStar(ctx,cx,cy,outer,inner) {
+    ctx.save();
+    ctx.beginPath();
+    for(let i=0;i<10;i++) {
+      const radius=i%2===0?outer:inner;
+      const angle=-Math.PI/2+i*Math.PI/5;
+      const x=cx+Math.cos(angle)*radius;
+      const y=cy+Math.sin(angle)*radius;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    const g=ctx.createLinearGradient(cx-outer,cy-outer,cx+outer,cy+outer);
+    g.addColorStop(0,'#FFF1A8');
+    g.addColorStop(0.48,'#D4AF37');
+    g.addColorStop(1,'#9F7411');
+    ctx.fillStyle=g;
+    ctx.shadowColor='rgba(8,28,91,0.3)';
+    ctx.shadowBlur=28;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function fitCanvasText(ctx,text,maxWidth,startSize,minSize,weight,family) {
+    let size=startSize;
+    do {
+      ctx.font=(weight||800)+' '+size+'px '+(family||'sans-serif');
+      if(ctx.measureText(text).width<=maxWidth) break;
+      size-=2;
+    } while(size>minSize);
+    return size;
+  }
+
+  function drawReceiptRule(ctx,y) {
+    ctx.save();
+    ctx.strokeStyle='#CAD5E8';
+    ctx.lineWidth=2;
+    ctx.setLineDash([9,10]);
+    ctx.beginPath();
+    ctx.moveTo(132,y);
+    ctx.lineTo(948,y);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function renderShareCanvas() {
+    const canvas=document.getElementById('share-canvas');
+    const ctx=canvas.getContext('2d');
+    const data=getReportData(reportPeriod);
+    const periodName=reportPeriod==='week'?'WEEKLY RECEIPT':'MONTHLY RECEIPT';
+    const periodJa=reportPeriod==='week'?'今週':'今月';
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle='#2455E0';
+    ctx.fillRect(0,0,1080,1350);
+
+    // Receipt paper
+    ctx.save();
+    ctx.shadowColor='rgba(7,25,82,0.28)';
+    ctx.shadowBlur=44;
+    ctx.shadowOffsetY=18;
+    drawRoundRect(ctx,70,55,940,1240,16,'#FFFFFF');
+    ctx.restore();
+
+    // Perforated receipt edges
+    ctx.fillStyle='#2455E0';
+    for(let x=92;x<1000;x+=38) {
+      ctx.beginPath(); ctx.arc(x,55,10,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x,1295,10,0,Math.PI*2); ctx.fill();
+    }
+
+    ctx.fillStyle='#101522';
+    ctx.font='800 64px sans-serif';
+    ctx.fillText('禁活',125,145);
+    ctx.fillStyle='#2455E0';
+    ctx.font='800 27px sans-serif';
+    ctx.textAlign='right';
+    ctx.fillText(periodName,945,132);
+    ctx.fillStyle='#7F8DA1';
+    ctx.font='700 22px monospace';
+    ctx.fillText('NO. '+String(Date.now()).slice(-8),945,161);
+    ctx.textAlign='left';
+
+    drawReceiptRule(ctx,205);
+
+    ctx.fillStyle='#64748B';
+    ctx.font='700 36px sans-serif';
+    ctx.fillText(periodJa+'、浮いたお金',125,280);
+    const amountText='¥'+data.total.toLocaleString();
+    fitCanvasText(ctx,amountText,790,132,82,800,'"Space Grotesk", sans-serif');
+    ctx.fillStyle='#101522';
+    ctx.fillText(amountText,118,420);
+    ctx.fillStyle='#7F8DA1';
+    ctx.font='700 29px sans-serif';
+    ctx.fillText('使わなかったお金を育てる',125,470);
+
+    drawShareStar(ctx,855,352,90,40);
+    ctx.fillStyle='#FFFFFF';
+    ctx.textAlign='center';
+    ctx.font='800 29px sans-serif';
+    ctx.fillText(String(data.days),855,353);
+    ctx.font='700 18px sans-serif';
+    ctx.fillText('DAYS',855,377);
+    ctx.textAlign='left';
+
+    drawReceiptRule(ctx,535);
+
+    const diff=data.total-data.previous;
+    const reportItems=[
+      ['記録した日',data.days+'日'],
+      ['一番浮いたもの',data.topKey?CAT_NAMES[data.topKey]:'－'],
+      ['前回との比較',data.previous===0?'今回から開始':(diff>=0?'+':'−')+'¥'+Math.abs(diff).toLocaleString()],
+      ['連続記録',streakDays()+'日']
+    ];
+    reportItems.forEach((item,i)=>{
+      const y=610+i*98;
+      ctx.fillStyle='#64748B';
+      ctx.font='700 30px sans-serif';
+      ctx.fillText(item[0],130,y);
+      ctx.fillStyle='#101522';
+      const size=fitCanvasText(ctx,item[1],470,40,28,800,'sans-serif');
+      ctx.font='800 '+size+'px sans-serif';
+      ctx.textAlign='right';
+      ctx.fillText(item[1],945,y);
+      ctx.textAlign='left';
+      if(i<reportItems.length-1) {
+        ctx.strokeStyle='#E4EAF3';
+        ctx.lineWidth=2;
+        ctx.beginPath(); ctx.moveTo(130,y+38); ctx.lineTo(945,y+38); ctx.stroke();
+      }
+    });
+
+    drawReceiptRule(ctx,1015);
+
+    ctx.fillStyle='#2455E0';
+    ctx.font='800 27px sans-serif';
+    ctx.fillText('生活に置き換えると',130,1080);
+    const possibility=data.total?rewardPossibility(data.total):'今日から記録をスタート';
+    const possibilitySize=fitCanvasText(ctx,possibility,800,38,27,800,'sans-serif');
+    ctx.fillStyle='#101522';
+    ctx.font='800 '+possibilitySize+'px sans-serif';
+    ctx.fillText(possibility,130,1132);
+
+    ctx.fillStyle='#2455E0';
+    ctx.fillRect(125,1195,820,3);
+    ctx.fillStyle='#64748B';
+    ctx.font='700 28px sans-serif';
+    ctx.fillText('#禁活  #金活',125,1248);
+    ctx.textAlign='right';
+    ctx.font='700 24px monospace';
+    ctx.fillText(appNow().toLocaleDateString('ja-JP'),945,1248);
+    ctx.textAlign='left';
+  }
+
+  function downloadShareImage() {
+    const a=document.createElement('a');
+    a.download='kinkatsu-'+(reportPeriod==='week'?'weekly':'monthly')+'.png';
+    a.href=document.getElementById('share-canvas').toDataURL('image/png');
+    a.click();
+  }
+
+  function canvasFile() {
+    return new Promise(resolve=>{
+      document.getElementById('share-canvas').toBlob(blob=>{
+        resolve(new File([blob],'kinkatsu-report.png',{type:'image/png'}));
+      },'image/png');
+    });
+  }
+
+  async function shareImage() {
+    const file=await canvasFile();
+    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})) {
+      try {
+        const data=getReportData(reportPeriod);
+        await navigator.share({
+          files:[file],
+          title:'禁活まとめ',
+          text:(reportPeriod==='week'?'今週':'今月')+'は¥'+data.total.toLocaleString()+'浮きました。 #禁活 #金活'
+        });
+      } catch(e) {
+        if(e.name!=='AbortError') downloadShareImage();
+      }
+    } else {
+      downloadShareImage();
+      toast('画像を保存しました');
+    }
+  }
+
+  function toast(msg) {
+    const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2200);
+  }
+
+  function seedTestData(days) {
+    const cats = ['drink','smoke','meal','snack','move','other'];
+    const items = {
+      drink: [{e:'🍺',n:'缶ビール1本',p:250},{e:'🍸',n:'飲み会1回',p:4000}],
+      smoke: [{e:'📦',n:'タバコ1箱',p:600},{e:'🚬',n:'タバコ1本',p:35}],
+      meal:  [{e:'🍔',n:'外食1食',p:1000},{e:'🍱',n:'デリバリー1食',p:1500}],
+      snack: [{e:'🍪',n:'コンビニスイーツ',p:300},{e:'🍫',n:'チョコ1個',p:150}],
+      move:  [{e:'🚕',n:'タクシー1回',p:1500}],
+      other: [{e:'🎰',n:'ガチャ・ギャンブル',p:3000}],
+    };
+    const now = appNow();
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(d.getDate() - i);
+      const count = 1 + Math.floor(Math.random() * 3);
+      for (let j = 0; j < count; j++) {
+        const cat = cats[Math.floor(Math.random() * cats.length)];
+        const item = items[cat][Math.floor(Math.random() * items[cat].length)];
+        d.setHours(10 + j * 3, Math.floor(Math.random() * 59), 0, 0);
+        logs.push({ id: Date.now() + Math.random(), cat, n: item.n, e: item.e, u: item.p, q: 1, d: d.toISOString() });
+      }
+    }
+    localStorage.setItem('kk_logs', JSON.stringify(logs));
+    renderHome();
+    toast(days + '日分のテストデータを追加しました');
+  }
+
+  function clearAllData() {
+    logs = [];
+    localStorage.removeItem('kk_logs');
+    renderHome();
+    toast('データをリセットしました');
+  }
+
+  paintLineIcons();
+  renderHome();
+</script>
+<script>
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
+    });
+  }
+</script>
+</body>
+</html>
