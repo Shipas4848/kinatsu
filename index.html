@@ -102,14 +102,28 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(255,255,255,0.10) 1px, transparent 1px);
-      background-size: 38px 38px;
-      opacity: 0.22;
+        linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.15) 1px, transparent 1px),
+        linear-gradient(135deg, rgba(255,255,255,0.08), transparent 58%);
+      background-size: 34px 34px, 34px 34px, 100% 100%;
+      opacity: 0.46;
       pointer-events: none;
     }
 
     .hero-card > * { position: relative; z-index: 1; }
+
+    .hero-growth-mark {
+      position: absolute;
+      right: -44px;
+      top: 24px;
+      width: 245px;
+      height: 245px;
+      object-fit: contain;
+      opacity: 0.18;
+      z-index: 0;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
 
     .hero-label {
       font-size: 13px;
@@ -672,6 +686,15 @@
       .cal-cell.success::before { animation: none; opacity: 0.35; transform: translateX(12%); }
     }
 
+    @media (max-width: 360px) {
+      .hero-growth-mark {
+        right: -62px;
+        width: 220px;
+        height: 220px;
+        opacity: 0.14;
+      }
+    }
+
     /* ===== ASSET PAGE ===== */
     .asset-page { padding: 0; }
 
@@ -1197,6 +1220,7 @@
     </div>
 
     <div class="hero-card">
+      <img class="hero-growth-mark" src="arrow-pink-transparent.png" alt="">
       <div class="hero-label">浮いたお金</div>
       <div class="hero-number"><small>¥</small><span id="hero-total">0</span></div>
 
