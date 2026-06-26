@@ -1721,7 +1721,16 @@
     return d;
   }
 
-  function selectCat(cat) {
+  function scrollProductSheetIntoView() {
+    const sheet = document.getElementById('product-sheet');
+    if (!sheet) return;
+    requestAnimationFrame(() => {
+      const top = sheet.getBoundingClientRect().top + window.scrollY - 12;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  }
+
+  function selectCat(cat, shouldScroll = true) {
     curCat = cat;
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('cat-' + cat).classList.add('active');
@@ -1739,6 +1748,7 @@
       </div>`).join('');
     document.getElementById('product-list').innerHTML = fl + dl;
     document.getElementById('product-sheet').classList.add('show');
+    if (shouldScroll) scrollProductSheetIntoView();
   }
 
   function openFavModal() {
@@ -1757,13 +1767,13 @@
     localStorage.setItem('kk_favs',JSON.stringify(favs));
     document.getElementById('fav-modal-bg').classList.remove('show');
     toast('追加しました');
-    selectCat(curCat);
+    selectCat(curCat, false);
   }
 
   function rmFav(cat,i) {
     favs[cat].splice(i,1);
     localStorage.setItem('kk_favs',JSON.stringify(favs));
-    selectCat(cat);
+    selectCat(cat, false);
   }
 
   document.getElementById('fav-modal-bg').addEventListener('click', e => {
