@@ -1722,7 +1722,14 @@
     return logs.reduce((sum,l)=>new Date(l.d)<=end?sum+(l.u||l.p)*(l.q||1):sum,0);
   }
 
+  function resetPageScroll() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+
   function showPage(name, btn) {
+    resetPageScroll();
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
@@ -1730,7 +1737,8 @@
     if (name === 'record') renderRecord();
     if (name === 'reward') renderRewards();
     if (name === 'asset') { renderGraph(); calcSim(); }
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    requestAnimationFrame(resetPageScroll);
+    setTimeout(resetPageScroll, 80);
   }
 
   function openRewards() {
