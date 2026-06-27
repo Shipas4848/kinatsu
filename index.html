@@ -1730,6 +1730,7 @@
     if (name === 'record') renderRecord();
     if (name === 'reward') renderRewards();
     if (name === 'asset') { renderGraph(); calcSim(); }
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
   function openRewards() {
