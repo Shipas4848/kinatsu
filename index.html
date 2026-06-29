@@ -330,19 +330,15 @@
     .sheet-header {
       padding: 14px 16px;
       border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
     }
 
     .sheet-title { font-size: 15px; font-weight: 800; }
 
-    .add-fav-btn {
-      font-size: 13px; font-weight: 700;
-      color: var(--blue);
-      border: none;
-      background: var(--blue-soft);
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 8px 11px;
+    .sheet-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text3);
+      margin-top: 3px;
     }
 
     .product-item {
@@ -367,18 +363,98 @@
       color: var(--blue);
       flex-shrink: 0;
     }
-    .p-name { flex: 1; font-size: 15px; font-weight: 700; }
-    .p-price { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: var(--blue); }
+    .p-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .p-name { font-size: 15px; font-weight: 800; min-width: 0; color: var(--text); }
+
+    .p-price { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 800; color: var(--blue); }
+
+    .p-record {
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--blue);
+      border-radius: 12px;
+      padding: 9px 12px;
+      line-height: 1;
+      box-shadow: 0 6px 14px rgba(36,85,224,0.18);
+    }
+
+    .fav-remove-inline {
+      width: fit-content;
+      border: none;
+      background: transparent;
+      color: var(--text3);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .custom-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 13px 16px;
+      border: none;
+      border-top: 1px solid var(--border);
+      background: var(--card);
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .custom-toggle.open {
+      justify-content: flex-end;
+      padding: 10px 16px;
+      color: var(--text3);
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--bg);
+    }
 
     .custom-row {
-      display: grid;
+      display: none;
       grid-template-columns: minmax(0, 1fr) minmax(88px, 112px) auto;
       gap: 8px;
       padding: 12px 16px 14px;
       border-top: 1px solid var(--border);
     }
 
-    .custom-row input {
+    .custom-row.show { display: grid; }
+
+    .custom-save-fav {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text2);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 1px 0;
+    }
+
+    .custom-save-fav input {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      accent-color: var(--blue);
+    }
+
+    .custom-row > input {
       width: 100%;
       min-width: 0;
       padding: 11px 12px;
@@ -388,7 +464,7 @@
       background: var(--bg); outline: none;
     }
 
-    .custom-row input:focus { border-color: var(--blue); }
+    .custom-row > input:focus { border-color: var(--blue); }
 
     .custom-row button {
       padding: 11px 13px; background: var(--blue); color: #fff;
@@ -971,6 +1047,115 @@
     }
     .guide-step-title { font-size: 15px; font-weight: 900; color: var(--text); margin-bottom: 3px; }
     .guide-step-text { font-size: 13px; line-height: 1.6; color: var(--text2); }
+    .guide-demo-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 14px;
+    }
+    .guide-demo-tab {
+      border: none;
+      border-radius: 9px;
+      padding: 8px 10px;
+      background: transparent;
+      color: var(--text2);
+      font: 800 13px inherit;
+      cursor: pointer;
+    }
+    .guide-demo-tab.active { background: var(--blue); color: #fff; }
+    .guide-demo-panel { display: none; }
+    .guide-demo-panel.active { display: block; }
+    .guide-mini-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .guide-demo-product {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .guide-demo-name { font-size: 14px; font-weight: 900; color: var(--text); }
+    .guide-demo-price { font: 800 14px 'Space Grotesk', sans-serif; color: var(--blue); margin-top: 2px; }
+    .guide-demo-record {
+      border: none;
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 12px;
+      font: 800 13px inherit;
+      cursor: pointer;
+    }
+    .guide-demo-record:disabled {
+      background: #9AA7B8;
+      cursor: default;
+      box-shadow: none;
+    }
+    .guide-demo-result {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .guide-demo-stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 10px;
+    }
+    .guide-demo-stat span { display: block; font-size: 11px; font-weight: 800; color: var(--text3); margin-bottom: 4px; }
+    .guide-demo-stat strong { font: 800 18px 'Space Grotesk', sans-serif; color: var(--blue); }
+    .guide-growth-card {
+      background: linear-gradient(180deg, #fff, #F6F8FC);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .guide-growth-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text2);
+      font-weight: 700;
+    }
+    .guide-growth-row:last-of-type { border-bottom: none; }
+    .guide-growth-row strong { font: 800 18px 'Space Grotesk', sans-serif; color: var(--text); }
+    .guide-growth-row .gain { color: #FF4778; }
+    .guide-demo-graph {
+      width: 100%;
+      height: 110px;
+      margin-top: 10px;
+    }
+    .guide-legend {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--text3);
+      font-weight: 700;
+      margin-top: 8px;
+    }
+    .guide-legend i {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
     .guide-note {
       font-size: 12px;
       line-height: 1.6;
@@ -988,6 +1173,173 @@
     }
     .guide-secondary { background: var(--blue-soft); color: var(--blue); }
     .guide-primary { background: var(--blue); color: #fff; }
+
+    .guide-modal {
+      align-items: stretch;
+      background: rgba(15,23,42,0.72);
+    }
+    .guide-modal .modal {
+      max-height: 100%;
+      overflow-y: auto;
+      border-radius: 0;
+      padding: 18px 16px 20px;
+    }
+    .guide-stage {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 14px;
+      margin-bottom: 12px;
+      min-height: 430px;
+    }
+    .guide-screen { display: none; }
+    .guide-screen.active { display: block; animation: guideIn 0.22s ease-out; }
+    @keyframes guideIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .guide-mini-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .guide-mini-logo { font-size: 18px; font-weight: 900; color: var(--text); }
+    .guide-mini-sub { font-size: 12px; font-weight: 800; color: var(--text3); margin-top: 1px; }
+    .guide-mini-chip {
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: #9A6500;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .guide-money-card {
+      background: var(--blue);
+      border-radius: 20px;
+      color: #fff;
+      padding: 18px 16px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .guide-money-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.5;
+    }
+    .guide-money-card > * { position: relative; z-index: 1; }
+    .guide-money-label { font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.72); margin-bottom: 6px; }
+    .guide-money-amount { font: 800 42px/1 'Space Grotesk', sans-serif; letter-spacing: -1.6px; }
+    .guide-plus-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.14);
+      border-radius: 15px;
+      padding: 10px 12px;
+      font-weight: 900;
+    }
+    .guide-question {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .guide-category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+    .guide-cat {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #fff;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 900;
+      text-align: left;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .guide-cat span { display: block; font-size: 12px; color: var(--text3); margin-top: 4px; }
+    .guide-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .guide-panel-head {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .guide-panel-title { font-size: 17px; font-weight: 900; color: var(--text); }
+    .guide-panel-sub { font-size: 12px; font-weight: 700; color: var(--text3); margin-top: 4px; }
+    .guide-product {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .guide-product-name { font-size: 16px; font-weight: 900; color: var(--text); }
+    .guide-product-price { font: 800 15px 'Space Grotesk', sans-serif; color: var(--blue); margin-top: 4px; }
+    .guide-record-btn,
+    .guide-main-btn {
+      border: none;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 14px;
+      font: 900 13px inherit;
+      cursor: pointer;
+    }
+    .guide-record-btn.done { background: #10B981; }
+    .guide-main-btn {
+      width: 100%;
+      border-radius: 15px;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+    .guide-focus {
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 4px rgba(36,85,224,0.16), 0 0 0 12px rgba(36,85,224,0.08);
+      animation: guidePulse 1.25s ease-in-out infinite;
+    }
+    @keyframes guidePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .guide-callout {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 12px;
+      box-shadow: 0 12px 28px rgba(15,23,42,0.08);
+    }
+    .guide-callout-title { font-size: 14px; font-weight: 900; color: var(--text); margin-bottom: 3px; }
+    .guide-callout-text { font-size: 13px; line-height: 1.55; color: var(--text2); }
+    .guide-grow-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .guide-grow-title { font-size: 16px; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+    .guide-grow-text { font-size: 13px; line-height: 1.6; color: var(--text2); margin-bottom: 10px; }
 
     /* ===== TOAST ===== */
     .toast {
@@ -1046,37 +1398,6 @@
       font-weight: 800;
       cursor: pointer;
     }
-
-    .quick-section { margin-bottom: 16px; }
-    .quick-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .quick-title { font-size: 13px; font-weight: 800; color: var(--text2); }
-    .quick-list { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-    .quick-list::-webkit-scrollbar { display: none; }
-    .quick-btn {
-      min-width: 126px;
-      min-height: 58px;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--card);
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      align-items: center;
-      gap: 8px;
-      text-align: left;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .quick-btn:active { transform: scale(0.97); }
-    .quick-icon { color: var(--blue); display: flex; }
-    .quick-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .quick-name { display: block; font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .quick-price { display: block; font-size: 13px; font-weight: 800; color: var(--blue); margin-top: 2px; }
 
     .reward-nudge {
       margin-bottom: 16px;
@@ -1337,13 +1658,6 @@
       </div>
     </div>
 
-    <div class="quick-section" id="quick-section" style="display:none;">
-      <div class="quick-head">
-        <div class="quick-title">すぐ記録</div>
-      </div>
-      <div class="quick-list" id="quick-list"></div>
-    </div>
-
     <div class="cat-grid">
       <div class="cat-btn" id="cat-drink" onclick="selectCat('drink')">
         <span class="cat-icon" data-icon="drink"></span>
@@ -1373,14 +1687,19 @@
 
     <div class="product-sheet" id="product-sheet">
       <div class="sheet-header">
-        <div class="sheet-title" id="sheet-title">何を我慢した？</div>
-        <button class="add-fav-btn" onclick="openFavModal()">＋ 追加</button>
+        <div class="sheet-title" id="sheet-title">浮いたお金を記録</div>
+        <div class="sheet-subtitle">使わなかった分を選んでください</div>
       </div>
       <div id="product-list"></div>
-      <div class="custom-row">
+      <button class="custom-toggle" id="custom-toggle" onclick="toggleCustomInput()">その他を記録</button>
+      <div class="custom-row" id="custom-row">
         <input type="text" id="custom-name" placeholder="商品名（任意）">
         <input type="number" id="custom-price" placeholder="金額">
-        <button onclick="logCustom()">記録</button>
+        <button onclick="logCustom()">記録する</button>
+        <label class="custom-save-fav">
+          <input type="checkbox" id="custom-save-fav">
+          <span>よく使うものに保存</span>
+        </label>
       </div>
     </div>
 
@@ -1540,33 +1859,118 @@
 
 <div class="modal-bg guide-modal" id="guide-modal-bg">
   <div class="modal">
-    <div class="guide-kicker">はじめての使い方</div>
-    <div class="guide-title">使わなかったお金を、見える形で育てます。</div>
-    <div class="guide-lead">
-      禁活は、我慢を記録するアプリではなく「浮いたお金」を増やしていく記録アプリです。
-    </div>
+    <div class="guide-kicker">はじめての禁活</div>
+    <div class="guide-title">まずは一回、記録の流れを試します。</div>
+    <div class="guide-lead">ここはチュートリアル用の画面です。実際の記録には入りません。</div>
 
-    <div class="guide-steps">
-      <div class="guide-step">
-        <div class="guide-step-num">1</div>
-        <div>
-          <div class="guide-step-title">今日、浮いたものを選ぶ</div>
-          <div class="guide-step-text">お酒、たばこ、間食、移動などから選んで、使わなかった金額を記録します。</div>
+    <div class="guide-stage">
+      <div class="guide-screen active" id="guide-screen-category">
+        <div class="guide-mini-top">
+          <div>
+            <div class="guide-mini-logo">禁活</div>
+            <div class="guide-mini-sub">浮いたお金を育てる</div>
+          </div>
+          <div class="guide-mini-chip">デモ</div>
+        </div>
+        <div class="guide-money-card">
+          <div class="guide-money-label">浮いたお金</div>
+          <div class="guide-money-amount">¥0</div>
+          <div class="guide-plus-row">
+            <span>今日のプラス</span>
+            <strong>+¥0</strong>
+          </div>
+        </div>
+        <div class="guide-question">今日、何が浮いた？</div>
+        <div class="guide-category-grid">
+          <button class="guide-cat guide-focus" onclick="setGuideStep('record')">お酒<span>買わなかったお酒代</span></button>
+          <button class="guide-cat">たばこ<span>吸わなかった分</span></button>
+          <button class="guide-cat">食事<span>外食・デリバリーなど</span></button>
+          <button class="guide-cat">移動<span>タクシーなど</span></button>
+        </div>
+        <div class="guide-callout">
+          <div class="guide-callout-title">光っている場所を押してください</div>
+          <div class="guide-callout-text">まずはカテゴリを選びます。今回は「お酒」で試します。</div>
         </div>
       </div>
-      <div class="guide-step">
-        <div class="guide-step-num">2</div>
-        <div>
-          <div class="guide-step-title">記録で変化を見る</div>
-          <div class="guide-step-text">記録では週・月の推移や、何で一番浮いたかを確認できます。</div>
+
+      <div class="guide-screen" id="guide-screen-record">
+        <div class="guide-panel">
+          <div class="guide-panel-head">
+            <div class="guide-panel-title">浮いたお金を記録</div>
+            <div class="guide-panel-sub">使わなかった分を選んでください</div>
+          </div>
+          <div class="guide-product">
+            <div>
+              <div class="guide-product-name">缶ビール350ml</div>
+              <div class="guide-product-price">¥220</div>
+            </div>
+            <button class="guide-record-btn guide-focus" id="guide-demo-record" onclick="runGuideDemoRecord()">記録する</button>
+          </div>
+          <div class="guide-product">
+            <div>
+              <div class="guide-product-name">缶ビール500ml</div>
+              <div class="guide-product-price">¥300</div>
+            </div>
+            <button class="guide-record-btn">記録する</button>
+          </div>
+        </div>
+        <div class="guide-callout">
+          <div class="guide-callout-title">記録するを押すだけ</div>
+          <div class="guide-callout-text">「買わなかったもの」を選ぶと、その金額が浮いたお金として増えます。</div>
         </div>
       </div>
-      <div class="guide-step">
-        <div class="guide-step-num">3</div>
-        <div>
-          <div class="guide-step-title">ご褒美や資産形成につなげる</div>
-          <div class="guide-step-text">浮いたお金でできることを選んだり、投資した場合の試算を見たりできます。</div>
+
+      <div class="guide-screen" id="guide-screen-result">
+        <div class="guide-mini-top">
+          <div>
+            <div class="guide-mini-logo">禁活</div>
+            <div class="guide-mini-sub">浮いたお金を育てる</div>
+          </div>
+          <div class="guide-mini-chip">記録できました</div>
         </div>
+        <div class="guide-money-card">
+          <div class="guide-money-label">浮いたお金</div>
+          <div class="guide-money-amount">¥220</div>
+          <div class="guide-plus-row">
+            <span>今日のプラス</span>
+            <strong>+¥220</strong>
+          </div>
+        </div>
+        <div class="guide-callout">
+          <div class="guide-callout-title">この数字が積み上がります</div>
+          <div class="guide-callout-text">小さい金額でも、続けると「増え方」で将来のイメージを見られます。</div>
+        </div>
+        <button class="guide-main-btn guide-focus" onclick="setGuideStep('growth')">増え方を見る</button>
+      </div>
+
+      <div class="guide-screen" id="guide-screen-growth">
+        <div class="guide-grow-card">
+          <div class="guide-grow-title">長く続けるほど、差が見えてきます</div>
+          <div class="guide-grow-text">たとえば1日220円を月25回、1年続けた場合のデモです。</div>
+          <div class="guide-growth-row">
+            <span>使わなかったお金</span>
+            <strong>¥66,000</strong>
+          </div>
+          <div class="guide-growth-row">
+            <span>もし育てていたら</span>
+            <strong>¥68,430</strong>
+          </div>
+          <div class="guide-growth-row">
+            <span>含み益</span>
+            <strong class="gain">+¥2,430</strong>
+          </div>
+          <svg class="guide-demo-graph" viewBox="0 0 320 110" aria-label="増え方のデモグラフ">
+          <line x1="8" y1="92" x2="312" y2="92" stroke="#E4EAF3" stroke-width="1"/>
+          <line x1="8" y1="58" x2="312" y2="58" stroke="#E4EAF3" stroke-width="1"/>
+          <polyline points="14,92 68,82 122,70 176,58 230,45 306,28" fill="none" stroke="#2455E0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="14,92 68,84 122,75 176,66 230,57 306,47" fill="none" stroke="#9AA7B8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5"/>
+          </svg>
+          <div class="guide-legend">
+            <span><i style="background:#2455E0;"></i>育てた場合</span>
+            <span><i style="background:#9AA7B8;"></i>浮いたお金</span>
+          </div>
+        </div>
+        <button class="guide-main-btn guide-focus" onclick="closeGuide(true)">はじめる</button>
       </div>
     </div>
 
@@ -1642,12 +2046,40 @@
 
 <script>
   const PRODUCTS = {
-    drink: [{e:'🍺',n:'缶ビール1本',p:250},{e:'🍻',n:'居酒屋1杯',p:600},{e:'🍷',n:'ワイン1杯',p:700},{e:'🍸',n:'飲み会1回',p:4000}],
-    smoke: [{e:'🚬',n:'タバコ1本',p:35},{e:'📦',n:'タバコ1箱',p:600},{e:'🔥',n:'電子タバコ',p:1500}],
-    meal:  [{e:'🍔',n:'外食1食',p:1000},{e:'🍱',n:'デリバリー1食',p:1500},{e:'🍜',n:'ランチ1食',p:800}],
-    snack: [{e:'🍪',n:'コンビニスイーツ',p:300},{e:'🍫',n:'チョコ1個',p:150},{e:'🥤',n:'ジュース1本',p:150}],
-    move:  [{e:'🚕',n:'タクシー1回',p:1500},{e:'🚗',n:'飲み会後タクシー',p:2500}],
-    other: [{e:'🎰',n:'ガチャ・ギャンブル',p:3000},{e:'🛍️',n:'衝動買い',p:2000}],
+    drink: [
+      {e:'🍺',n:'缶ビール350ml',p:220},
+      {e:'🍺',n:'缶ビール500ml',p:300},
+      {e:'🍻',n:'居酒屋の1杯',p:550},
+      {e:'🍷',n:'ワイン1杯',p:700},
+      {e:'🍸',n:'飲み会1回',p:4500}
+    ],
+    smoke: [
+      {e:'🚬',n:'タバコ1本',p:30},
+      {e:'📦',n:'タバコ1箱',p:580},
+      {e:'🔥',n:'加熱式たばこ1箱',p:580}
+    ],
+    meal: [
+      {e:'🍚',n:'牛丼並盛',p:500},
+      {e:'🍔',n:'ビッグマック単品',p:500},
+      {e:'🍜',n:'外食ランチ1食',p:1000},
+      {e:'🍱',n:'デリバリー1食',p:1800}
+    ],
+    snack: [
+      {e:'🍪',n:'コンビニスイーツ',p:280},
+      {e:'🍫',n:'チョコ1個',p:160},
+      {e:'🥤',n:'ペットボトル飲料',p:170},
+      {e:'☕',n:'カフェ1杯',p:450}
+    ],
+    move: [
+      {e:'🚕',n:'タクシー短距離',p:1200},
+      {e:'🚗',n:'飲み会後タクシー',p:3000},
+      {e:'🚃',n:'電車・バス1回',p:220}
+    ],
+    other: [
+      {e:'🎰',n:'ガチャ1回',p:300},
+      {e:'🎰',n:'ガチャ10連・ギャンブル',p:3000},
+      {e:'🛍️',n:'衝動買い',p:3000}
+    ],
   };
 
   const CAT_NAMES = {drink:'お酒',smoke:'たばこ',meal:'食事',snack:'間食',move:'移動',other:'その他'};
@@ -1768,21 +2200,52 @@
     });
   }
 
+  function closeCustomInput() {
+    const row=document.getElementById('custom-row');
+    const toggle=document.getElementById('custom-toggle');
+    if (!row || !toggle) return;
+    row.classList.remove('show');
+    toggle.classList.remove('open');
+    toggle.textContent='その他を記録';
+    const checkbox=document.getElementById('custom-save-fav');
+    if (checkbox) checkbox.checked=false;
+  }
+
+  function toggleCustomInput() {
+    const row=document.getElementById('custom-row');
+    const toggle=document.getElementById('custom-toggle');
+    const willOpen=!row.classList.contains('show');
+    row.classList.toggle('show', willOpen);
+    toggle.classList.toggle('open', willOpen);
+    toggle.textContent=willOpen?'入力欄を閉じる':'その他を記録';
+    if (willOpen) {
+      setTimeout(() => document.getElementById('custom-price').focus(), 80);
+    }
+  }
+
   function selectCat(cat, shouldScroll = true) {
     curCat = cat;
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('cat-' + cat).classList.add('active');
-    document.getElementById('sheet-title').textContent = CAT_NAMES[cat] + 'で浮いたものは？';
+    closeCustomInput();
     const fl = (favs[cat]||[]).map((p,i) => `
       <div class="product-item" onclick="addLog('${cat}','${p.n}',${p.p},'${p.e}')">
-        <div class="p-icon">${LINE_ICONS[cat]}</div><div class="p-name">${p.n}</div>
-        <span onclick="event.stopPropagation();rmFav('${cat}',${i})" style="font-size:11px;color:#EF4444;cursor:pointer;margin-right:4px;">削除</span>
-        <div class="p-price">¥${p.p.toLocaleString()}</div>
+        <div class="p-icon">${LINE_ICONS[cat]}</div>
+        <div class="p-main">
+          <div class="p-name">${p.n}</div>
+          <div class="p-price">¥${p.p.toLocaleString()}</div>
+          <button class="fav-remove-inline" onclick="event.stopPropagation();rmFav('${cat}',${i})">保存から削除</button>
+        </div>
+        <div class="p-record">記録する</div>
       </div>`).join('');
     const dl = PRODUCTS[cat].map(p => `
       <div class="product-item" onclick="addLog('${cat}','${p.n}',${p.p},'${p.e}')">
-        <div class="p-icon">${LINE_ICONS[cat]}</div><div class="p-name">${p.n}</div>
-        <div class="p-price">¥${p.p.toLocaleString()}</div>
+        <div class="p-icon">${LINE_ICONS[cat]}</div>
+        <div class="p-main">
+          <div class="p-name">${p.n}</div>
+          <div class="p-price">¥${p.p.toLocaleString()}</div>
+        </div>
+        <div class="p-record">記録する</div>
       </div>`).join('');
     document.getElementById('product-list').innerHTML = fl + dl;
     document.getElementById('product-sheet').classList.add('show');
@@ -1917,12 +2380,23 @@
 
   function logCustom() {
     if (!curCat) { toast('カテゴリを選んでください'); return; }
-    const n=document.getElementById('custom-name').value||'その他';
+    const nameInput=document.getElementById('custom-name');
+    const saveFav=document.getElementById('custom-save-fav').checked;
+    const n=nameInput.value||'その他';
     const p=parseInt(document.getElementById('custom-price').value);
     if (!p) { toast('金額を入力してください'); return; }
+    if (saveFav && !nameInput.value) { toast('保存する場合は商品名を入力してください'); return; }
+    if (saveFav) {
+      favs[curCat]=favs[curCat]||[];
+      favs[curCat].unshift({e:'',n,p});
+      localStorage.setItem('kk_favs',JSON.stringify(favs));
+    }
     addLog(curCat,n,p,'');
     document.getElementById('custom-name').value='';
     document.getElementById('custom-price').value='';
+    document.getElementById('custom-save-fav').checked=false;
+    closeCustomInput();
+    if (saveFav) selectCat(curCat, false);
   }
 
   function changeQty(id,d) {
@@ -1960,7 +2434,6 @@
     const lastMonth=monthToDateTotal(-1);
     document.getElementById('hero-today').textContent='+¥'+todayAmt.toLocaleString();
     setMonthCompare('hero-month-diff', thisMonth, lastMonth);
-    renderQuick();
     renderRewardNudge(total);
 
     const selectedDate=getLogDate().toDateString();
@@ -1984,31 +2457,6 @@
           <div class="del-btn" onclick="delLog(${l.id})">×</div>
         </div>`).join('');
     }
-  }
-
-  function renderQuick() {
-    const unique=[];
-    logs.slice().reverse().forEach(l=>{
-      const key=l.cat+'|'+l.n+'|'+(l.u||l.p);
-      if(!unique.some(x=>x.key===key)) unique.push({key,cat:l.cat,n:l.n,p:l.u||l.p,e:l.e});
-    });
-    const items=unique.slice(0,3);
-    const section=document.getElementById('quick-section');
-    if(!items.length) { section.style.display='none'; return; }
-    section.style.display='block';
-    document.getElementById('quick-list').innerHTML=items.map(item=>`
-      <button class="quick-btn" onclick="quickAdd('${encodeURIComponent(JSON.stringify(item))}')">
-        <span class="quick-icon">${LINE_ICONS[item.cat]||LINE_ICONS.other}</span>
-        <span>
-          <span class="quick-name">${item.n}</span>
-          <span class="quick-price">¥${item.p.toLocaleString()}</span>
-        </span>
-      </button>`).join('');
-  }
-
-  function quickAdd(encodedItem) {
-    const item=JSON.parse(decodeURIComponent(encodedItem));
-    addLog(item.cat,item.n,item.p,item.e||'');
   }
 
   function renderRewardNudge(total) {
@@ -2613,6 +3061,30 @@
 
   function openGuide() {
     document.getElementById('guide-modal-bg').classList.add('show');
+    setGuideStep('category');
+    resetGuideDemo();
+  }
+
+  function setGuideStep(step) {
+    document.querySelectorAll('.guide-screen').forEach(screen => screen.classList.remove('active'));
+    const target = document.getElementById('guide-screen-' + step);
+    if (target) target.classList.add('active');
+  }
+
+  function resetGuideDemo() {
+    const btn=document.getElementById('guide-demo-record');
+    if (!btn) return;
+    btn.textContent='記録する';
+    btn.classList.remove('done');
+    btn.disabled=false;
+  }
+
+  function runGuideDemoRecord() {
+    const btn=document.getElementById('guide-demo-record');
+    btn.textContent='記録しました';
+    btn.classList.add('done');
+    btn.disabled=true;
+    setTimeout(()=>setGuideStep('result'),500);
   }
 
   function closeGuide(markSeen) {
@@ -2627,12 +3099,12 @@
   function seedTestData(days) {
     const cats = ['drink','smoke','meal','snack','move','other'];
     const items = {
-      drink: [{e:'🍺',n:'缶ビール1本',p:250},{e:'🍸',n:'飲み会1回',p:4000}],
-      smoke: [{e:'📦',n:'タバコ1箱',p:600},{e:'🚬',n:'タバコ1本',p:35}],
-      meal:  [{e:'🍔',n:'外食1食',p:1000},{e:'🍱',n:'デリバリー1食',p:1500}],
-      snack: [{e:'🍪',n:'コンビニスイーツ',p:300},{e:'🍫',n:'チョコ1個',p:150}],
-      move:  [{e:'🚕',n:'タクシー1回',p:1500}],
-      other: [{e:'🎰',n:'ガチャ・ギャンブル',p:3000}],
+      drink: [{e:'🍺',n:'缶ビール350ml',p:220},{e:'🍺',n:'缶ビール500ml',p:300},{e:'🍸',n:'飲み会1回',p:4500}],
+      smoke: [{e:'📦',n:'タバコ1箱',p:580},{e:'🚬',n:'タバコ1本',p:30}],
+      meal:  [{e:'🍔',n:'ビッグマック単品',p:500},{e:'🍱',n:'デリバリー1食',p:1800}],
+      snack: [{e:'🍪',n:'コンビニスイーツ',p:280},{e:'🍫',n:'チョコ1個',p:160}],
+      move:  [{e:'🚕',n:'タクシー短距離',p:1200}],
+      other: [{e:'🎰',n:'ガチャ10連・ギャンブル',p:3000}],
     };
     const now = appNow();
     for (let i = days - 1; i >= 0; i--) {
