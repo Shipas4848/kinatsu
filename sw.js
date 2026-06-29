@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kinkatsu-v1';
+const CACHE_NAME = 'kinkatsu-v2';
 
 const APP_SHELL = [
   './',
